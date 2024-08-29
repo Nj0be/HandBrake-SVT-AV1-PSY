@@ -1,0 +1,69 @@
+diff --git a/libhb/common.c b/libhb/common.c
+index dfd41edac..4cb7ef21e 100644
+--- a/libhb/common.c
++++ b/libhb/common.c
+@@ -1525,14 +1525,20 @@ void hb_video_quality_get_limits(uint32_t codec, float *low, float *high,
+         case HB_VCODEC_FFMPEG_VP8:
+         case HB_VCODEC_FFMPEG_VP9:
+         case HB_VCODEC_FFMPEG_VP9_10BIT:
+-        case HB_VCODEC_SVT_AV1:
+-        case HB_VCODEC_SVT_AV1_10BIT:
+             *direction   = 1;
+             *granularity = 1.;
+             *low         = 0.;
+             *high        = 63.;
+             break;
+ 
++        case HB_VCODEC_SVT_AV1:
++        case HB_VCODEC_SVT_AV1_10BIT:
++            *direction   = 1;
++            *granularity = 0.25;
++            *low         = 0.;
++            *high        = 70.;
++            break;
++
+         case HB_VCODEC_VT_H264:
+         case HB_VCODEC_VT_H265:
+         case HB_VCODEC_VT_H265_10BIT:
+
+diff --git a/libhb/encsvtav1.c b/libhb/encsvtav1.c
+index a2f18034f..195483b0c 100644
+--- a/libhb/encsvtav1.c
++++ b/libhb/encsvtav1.c
+@@ -25,6 +25,7 @@ int  encsvtWork(hb_work_object_t *, hb_buffer_t **, hb_buffer_t **);
+ void encsvtClose(hb_work_object_t *);
+
+ #define FRAME_INFO_SIZE 2048
++#define MAX_QP_VALUE 63
+ #define FRAME_INFO_MASK (FRAME_INFO_SIZE - 1)
+
+ hb_work_object_t hb_encsvtav1 =
+@@ -89,6 +89,19 @@ static int alloc_buffer(EbSvtAv1EncConfiguration *config, hb_work_private_t *pv)
+     return 0;
+ }
+
++void set_extended_crf(EbSvtAv1EncConfiguration *param, double vquality) {
++    if (vquality <= MAX_QP_VALUE) // for crf <= 63
++    {
++        int decimalPart                   = (vquality - (int)vquality) * 100; // Get the decimal part
++        param->qp                         = vquality; // truncated automatically
++        param->extended_crf_qindex_offset = decimalPart / 25;
++    } else // extended crf
++    {
++        param->qp                         = MAX_QP_VALUE;
++        param->extended_crf_qindex_offset = (vquality - MAX_QP_VALUE) * 4;
++    }
++}
++
+ int encsvtInit(hb_work_object_t *w, hb_job_t *job)
+ {
+     hb_work_private_t *pv = calloc(1, sizeof(hb_work_private_t));
+@@ -124,7 +130,7 @@ int encsvtInit(hb_work_object_t *w, hb_job_t *job)
+     }
+     else
+     {
+-        param->qp                = job->vquality;
++        set_extended_crf(param, job->vquality);
+         param->rate_control_mode = SVT_AV1_RC_MODE_CQP_OR_CRF;
+         param->force_key_frames = 1;
+     }
