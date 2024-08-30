@@ -1,3 +1,5 @@
+Increasing CRF range from 63 to 70
+Changing CRF granularity from 1 to 0.25
 diff --git a/libhb/common.c b/libhb/common.c
 index dfd41edac..4cb7ef21e 100644
 --- a/libhb/common.c
@@ -26,6 +28,13 @@ index dfd41edac..4cb7ef21e 100644
          case HB_VCODEC_VT_H265:
          case HB_VCODEC_VT_H265_10BIT:
 
+The SVT-AV1-PSY fork store CRF/QP values in a particular way:
+  - If we are using CRF values less than MAX_QP_VALUE (63) the integer
+    part is stored in param->qp whereas the decimal part multiplied 
+	by 4 is stored in param->extended_crf_quindex_offset
+  - If we are using CRF values bigger than MAX_QP_VALUE we store 
+    MAX_QP_VALUE inside param->qp and the remaining part inside
+	param->extended_crf_qindex_offset (always multiplied by 4)
 diff --git a/libhb/encsvtav1.c b/libhb/encsvtav1.c
 index a2f18034f..195483b0c 100644
 --- a/libhb/encsvtav1.c
@@ -38,32 +47,13 @@ index a2f18034f..195483b0c 100644
  #define FRAME_INFO_MASK (FRAME_INFO_SIZE - 1)
 
  hb_work_object_t hb_encsvtav1 =
-@@ -89,6 +89,19 @@ static int alloc_buffer(EbSvtAv1EncConfiguration *config, hb_work_private_t *pv)
-     return 0;
- }
-
-+void set_extended_crf(EbSvtAv1EncConfiguration *param, double vquality) {
-+    if (vquality <= MAX_QP_VALUE) // for crf <= 63
-+    {
-+        int decimalPart                   = (vquality - (int)vquality) * 100; // Get the decimal part
-+        param->qp                         = vquality; // truncated automatically
-+        param->extended_crf_qindex_offset = decimalPart / 25;
-+    } else // extended crf
-+    {
-+        param->qp                         = MAX_QP_VALUE;
-+        param->extended_crf_qindex_offset = (vquality - MAX_QP_VALUE) * 4;
-+    }
-+}
-+
- int encsvtInit(hb_work_object_t *w, hb_job_t *job)
- {
-     hb_work_private_t *pv = calloc(1, sizeof(hb_work_private_t));
-@@ -124,7 +130,7 @@ int encsvtInit(hb_work_object_t *w, hb_job_t *job)
+@@ -124,7 +125,8 @@ int encsvtInit(hb_work_object_t *w, hb_job_t *job)
      }
      else
      {
 -        param->qp                = job->vquality;
-+        set_extended_crf(param, job->vquality);
++        param->qp                         = fmin(job->vquality, MAX_QP_VALUE); // truncated 
++        param->extended_crf_qindex_offset = (job->vquality - param->qp) * 4;
          param->rate_control_mode = SVT_AV1_RC_MODE_CQP_OR_CRF;
          param->force_key_frames = 1;
      }
