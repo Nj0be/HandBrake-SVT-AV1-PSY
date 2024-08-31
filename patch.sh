@@ -12,3 +12,8 @@ fi
 for filename in patches/*.patch; do
     patch -t -N -p1 -d HandBrake < "$filename"  || exit 1
 done
+
+# The flatpak build refers to the latest commit, so we add a commit that includes the patches
+cd HandBrake
+git add .
+git commit -m "Patch"
