@@ -10,7 +10,8 @@ In addition, using GitHub Actions, nightly build of patched executables will be 
 | ----------------- | --------------- | ------------- |
 | Windows           | [Download](https://github.com/Nj0be/HandBrake-SVT-AV1-PSY/releases/tag/win) | [![Windows Build](https://github.com/Nj0be/HandBrake-SVT-AV1-PSY/actions/workflows/nightly-win.yml/badge.svg)](https://github.com/Nj0be/HandBrake-SVT-AV1-PSY/actions/workflows/nightly-win.yml)  |
 | macOS             | [Download](https://github.com/Nj0be/HandBrake-SVT-AV1-PSY/releases/tag/mac) | [![macOS build](https://github.com/Nj0be/HandBrake-SVT-AV1-PSY/actions/workflows/nightly-mac.yml/badge.svg)](https://github.com/Nj0be/HandBrake-SVT-AV1-PSY/actions/workflows/nightly-mac.yml)  |
-| Linux (Flatpak)   | [Download](https://github.com/Nj0be/HandBrake-SVT-AV1-PSY/releases/tag/lin) | [![Flatpak Build](https://github.com/Nj0be/HandBrake-SVT-AV1-PSY/actions/workflows/nightly-linux.yml/badge.svg)](https://github.com/Nj0be/HandBrake-SVT-AV1-PSY/actions/workflows/nightly-linux.yml) |
+| Linux (Flatpak)   | [Download](https://github.com/Nj0be/HandBrake-SVT-AV1-PSY/releases/tag/flatpak) | [![Flatpak Build](https://github.com/Nj0be/HandBrake-SVT-AV1-PSY/actions/workflows/nightly-flatpak.yml/badge.svg)](https://github.com/Nj0be/HandBrake-SVT-AV1-PSY/actions/workflows/nightly-flatpak.yml) |
+| Linux (Binary)    | [Download](https://github.com/Nj0be/HandBrake-SVT-AV1-PSY/releases/tag/linux) | [![Flatpak Build](https://github.com/Nj0be/HandBrake-SVT-AV1-PSY/actions/workflows/nightly-linux.yml/badge.svg)](https://github.com/Nj0be/HandBrake-SVT-AV1-PSY/actions/workflows/nightly-linux.yml) |
 
 *1 Please note that if a build is marked as failed, previous builds may still be available for download!
 ### Testing

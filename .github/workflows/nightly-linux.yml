@@ -38,9 +38,9 @@ jobs:
         cargo install cargo-c
 
     - name: Download the Source Code
-        run: |
-          git clone https://github.com/HandBrake/HandBrake.git
-          ./patch.sh
+      run: |
+        git clone https://github.com/HandBrake/HandBrake.git
+        ./patch.sh
 
     - name: Build HandBrake Linux
       run: |
