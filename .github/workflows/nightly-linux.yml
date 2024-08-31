@@ -59,7 +59,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: HandBrakeGUI
-        path: ./HandBrake/build/gtk/src/ghb*
+        path: ./HandBrake/build/gtk/src/ghb-*
 
 
   deploy_nightly:
@@ -69,9 +69,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
        
-      - name: Download Artifacts - Linux Binaries
+      - name: Download Artifacts - CLI Linux
         uses: actions/download-artifact@v4
         with:
+          name: HandBrakeCLI
+          path: linux/
+
+      - name: Download Artifacts - GUI Linux
+        uses: actions/download-artifact@v4
+        with:
+          name: HandBrakeGUI
           path: linux/
           
       # Generate Hashes
@@ -98,7 +105,7 @@ jobs:
           
       - uses: ncipollo/release-action@v1
         with:
-          artifacts: "linux/*.*"
+          artifacts: "linux/*"
           name: "Snapshots for Linux (Binary)"
           bodyFile: .github/workflows/linux_rel_body.md
           prerelease: true
