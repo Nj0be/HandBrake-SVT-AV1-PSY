@@ -16,4 +16,4 @@ done
 # The flatpak build refers to the latest commit, so we add a commit that includes the patches
 cd HandBrake
 git add .
-git commit -m "Patch"
+git -c user.name='deadbeef' -c user.email='deadbeef' commit -m "Patch"
