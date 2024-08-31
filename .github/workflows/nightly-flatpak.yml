@@ -1,0 +1,111 @@
+name: Flatpak Build
+
+on:
+  schedule:
+    - cron:  '30 7 * * 1,5'
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build on Linux
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Cargo-C Toolchain Cache
+      id: linux-cargo-c-toolchain
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cargo/bin/cargo-capi
+          ~/.cargo/bin/cargo-cbuild
+          ~/.cargo/bin/cargo-cinstall
+        key: linux-cargo-c-toolchain
+
+    - name: Setup Environment
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y autoconf automake autopoint appstream build-essential cmake git libass-dev libbz2-dev libfontconfig1-dev libfreetype6-dev libfribidi-dev libharfbuzz-dev libjansson-dev liblzma-dev libmp3lame-dev libnuma-dev libogg-dev libopus-dev libsamplerate-dev libspeex-dev -y 
+        sudo apt-get install -y libtheora-dev libtool libtool-bin libturbojpeg0-dev libvorbis-dev libx264-dev libxml2-dev libvpx-dev m4 make meson nasm ninja-build patch pkg-config tar zlib1g-dev
+        sudo apt-get install -y libva-dev libdrm-dev intltool libglib2.0-dev libunwind-dev libgtk-4-dev libgudev-1.0-dev libwebkit2gtk-4.0-dev libssl-dev
+        sudo pip3 install meson
+        sudo apt-get install flatpak flatpak-builder
+        sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+        sudo flatpak install -y flathub org.freedesktop.Sdk//23.08
+        sudo flatpak install -y flathub org.freedesktop.Platform//23.08
+        sudo flatpak install -y flathub org.gnome.Platform//46
+        sudo flatpak install -y flathub org.gnome.Sdk//46
+        sudo flatpak install -y org.freedesktop.Sdk.Extension.llvm16//23.08
+        sudo flatpak install -y org.freedesktop.Sdk.Extension.rust-stable//23.08
+        sudo apt-get upgrade -y
+
+    - name: Setup Cargo-C Toolchain
+      if: steps.linux-cargo-c-toolchain.outputs.cache-hit != 'true'
+      run: |
+        cargo install cargo-c
+        
+    - name: Download the Source Code
+      run: |
+        git clone https://github.com/HandBrake/HandBrake.git
+        ./patch.sh
+    
+    - name: Build HandBrake
+      run: |
+        cd HandBrake
+        ./configure --launch-jobs=1 --flatpak --enable-qsv --enable-vce --enable-nvenc --enable-nvdec
+        cd build
+        nice make pkg.create.flatpak --jobs=1
+
+    - name: Upload Assets
+      uses: actions/upload-artifact@v4
+      with:
+        name: HandBrake-Flatpak
+        path: ./HandBrake/build/pkg/flatpak/*.flatpak
+
+
+  deploy_nightly:
+    name: Deploy Nightly Build
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+       
+      - name: Download Artifacts - Flatpak Binaries
+        uses: actions/download-artifact@v4
+        with:
+          name: HandBrake-Flatpak
+          path: flatpak/
+          
+      # Generate Hashes
+      - name: Generate SHA265 Hashes
+        run: |
+          cd flatpak
+          sha256sum * > sha256.txt
+          cp sha256.txt ../.github/workflows/
+          cd ..
+          cd .github/workflows/
+          sed -e 's/  / | /' -i sha256.txt
+          sed -e 's/^/| /'  -i sha256.txt
+          sed -e 's/$/ |/' -i sha256.txt
+          cat sha256.txt >> flatpak_rel_body.md
+      
+      # Publishing the Release
+      - name: Remove the old Release
+        uses: dev-drprasad/delete-older-releases@v0.3.4
+        with:
+          keep_latest: 0
+          delete_tag_pattern: "flatpak"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: "flatpak/*.*"
+          name: "Snapshots for Linux"
+          bodyFile: .github/workflows/flatpak_rel_body.md
+          prerelease: true
+          replacesArtifacts: false
+          allowUpdates: false
+          tag: flatpak
+          token: ${{ secrets.GITHUB_TOKEN }}
