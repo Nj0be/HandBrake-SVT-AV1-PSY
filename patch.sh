@@ -10,5 +10,5 @@ if [ ! -d "HandBrake" ]; then
 fi
 
 for filename in patches/*.patch; do
-    patch -t -N -p1 -d HandBrake < "$filename"
+    patch -t -N -p1 -d HandBrake < "$filename"  || exit 1
 done
