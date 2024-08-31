@@ -99,7 +99,7 @@ jobs:
       - uses: ncipollo/release-action@v1
         with:
           artifacts: "linux/*.*"
-          name: "Snapshots for Linux"
+          name: "Snapshots for Linux (Binary)"
           bodyFile: .github/workflows/linux_rel_body.md
           prerelease: true
           replacesArtifacts: false
