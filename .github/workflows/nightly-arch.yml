@@ -32,22 +32,11 @@ jobs:
       id: makepkg
       uses: edlanglois/pkgbuild-action@v1
 
-    - name: Rename Artifacts
-      run: |
-         mv src/HandBrake/build/HandBrakeCLI HandBrakeCLI-$(date +'%Y%m%d')-master-x86_64
-         mv src/HandBrake/build/gtk/src/ghb ghb-$(date +'%Y%m%d')-master-x86_64
-
-    - name: Upload HandBrake CLI
-      uses: actions/upload-artifact@v4
+    - name: Upload HandBrake-SVT-AV1-PSY Archive
+      uses: actions/upload-artifact@v2
       with:
-        name: HandBrakeCLI
-        path: ./HandBrakeCLI*
-
-    - name: Upload HandBrake GUI
-      uses: actions/upload-artifact@v4
-      with:
-        name: HandBrakeGUI
-        path: ./ghb-*
+        name: HandBrakePKG
+        path: ${{ steps.makepkg.outputs.pkgfile0 }}
 
 
   deploy_nightly:
@@ -57,18 +46,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
        
-      - name: Download Artifacts - CLI Linux
+      - name: Download Artifacts - PKG Arch Linux
         uses: actions/download-artifact@v4
         with:
-          name: HandBrakeCLI
+          name: HandBrakePKG
           path: arch/
 
-      - name: Download Artifacts - GUI Linux
-        uses: actions/download-artifact@v4
-        with:
-          name: HandBrakeGUI
-          path: arch/
-          
       # Generate Hashes
       - name: Generate SHA265 Hashes
         run: |
