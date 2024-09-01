@@ -33,7 +33,7 @@ jobs:
       uses: edlanglois/pkgbuild-action@v1
 
     - name: Upload HandBrake-SVT-AV1-PSY Archive
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: HandBrakePKG
         path: ${{ steps.makepkg.outputs.pkgfile0 }}
@@ -44,43 +44,43 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - uses: actions/checkout@v4
+    - uses: actions/checkout@v4
        
-      - name: Download Artifacts - PKG Arch Linux
-        uses: actions/download-artifact@v4
-        with:
-          name: HandBrakePKG
-          path: arch/
+    - name: Download Artifacts - PKG Arch Linux
+      uses: actions/download-artifact@v4
+      with:
+        name: HandBrakePKG
+        path: arch/
 
-      # Generate Hashes
-      - name: Generate SHA265 Hashes
-        run: |
-          cd arch
-          sha256sum * > sha256.txt
-          cp sha256.txt ../.github/workflows/
-          cd ..
-          cd .github/workflows/
-          sed -e 's/  / | /' -i sha256.txt
-          sed -e 's/^/| /'  -i sha256.txt
-          sed -e 's/$/ |/' -i sha256.txt
-          cat sha256.txt >> arch_rel_body.md
+    # Generate Hashes
+    - name: Generate SHA265 Hashes
+      run: |
+        cd arch
+        sha256sum * > sha256.txt
+        cp sha256.txt ../.github/workflows/
+        cd ..
+        cd .github/workflows/
+        sed -e 's/  / | /' -i sha256.txt
+        sed -e 's/^/| /'  -i sha256.txt
+        sed -e 's/$/ |/' -i sha256.txt
+        cat sha256.txt >> arch_rel_body.md
       
-      # Publishing the Release
-      - name: Remove the old Release
-        uses: dev-drprasad/delete-older-releases@v0.3.4
-        with:
-          keep_latest: 0
-          delete_tag_pattern: "arch"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # Publishing the Release
+    - name: Remove the old Release
+      uses: dev-drprasad/delete-older-releases@v0.3.4
+      with:
+        keep_latest: 0
+        delete_tag_pattern: "arch"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
-      - uses: ncipollo/release-action@v1
-        with:
-          artifacts: "arch/*"
-          name: "Snapshots for Arch Linux"
-          bodyFile: .github/workflows/arch_rel_body.md
-          prerelease: true
-          replacesArtifacts: false
-          allowUpdates: false
-          tag: arch
-          token: ${{ secrets.GITHUB_TOKEN }}
+    - uses: ncipollo/release-action@v1
+      with:
+        artifacts: "arch/*"
+        name: "Snapshots for Arch Linux"
+        bodyFile: .github/workflows/arch_rel_body.md
+        prerelease: true
+        replacesArtifacts: false
+        allowUpdates: false
+        tag: arch
+        token: ${{ secrets.GITHUB_TOKEN }}
