@@ -31,7 +31,7 @@ jobs:
 
     - name: Build HandBrake Linux
       run: |
-         makepkg -s
+         runuser -unobody makepkg
          mv src/HandBrake/build/HandBrakeCLI HandBrakeCLI-$(date +'%Y%m%d')-master-x86_64
          mv src/HandBrake/build/gtk/src/ghb ghb-$(date +'%Y%m%d')-master-x86_64
 

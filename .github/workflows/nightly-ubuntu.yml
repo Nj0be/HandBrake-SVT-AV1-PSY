@@ -46,8 +46,8 @@ jobs:
       run: |
          cd HandBrake
          ./configure --enable-qsv --enable-vce --enable-nvenc --enable-nvdec --launch-jobs=0 --launch
-         mv build/HandBrakeCLI HandBrakeCLI-$(date +'%Y%m%d')-master-x86_64
-         mv build/gtk/src/ghb ghb-$(date +'%Y%m%d')-master-x86_64
+         mv build/HandBrakeCLI ../HandBrakeCLI-$(date +'%Y%m%d')-master-x86_64
+         mv build/gtk/src/ghb ../ghb-$(date +'%Y%m%d')-master-x86_64
 
     - name: Upload HandBrake CLI
       uses: actions/upload-artifact@v4
