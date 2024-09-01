@@ -1,4 +1,4 @@
-name: Linux Build
+name: Ubuntu Build
 
 on:
   schedule:
@@ -46,20 +46,20 @@ jobs:
       run: |
          cd HandBrake
          ./configure --enable-qsv --enable-vce --enable-nvenc --enable-nvdec --launch-jobs=0 --launch
-         mv build/HandBrakeCLI build/HandBrakeCLI-$(date +'%Y%m%d')-master-x86_64
-         mv build/gtk/src/ghb build/gtk/src/ghb-$(date +'%Y%m%d')-master-x86_64
+         mv build/HandBrakeCLI ../HandBrakeCLI-$(date +'%Y%m%d')-master-x86_64
+         mv build/gtk/src/ghb ../ghb-$(date +'%Y%m%d')-master-x86_64
 
     - name: Upload HandBrake CLI
       uses: actions/upload-artifact@v4
       with:
         name: HandBrakeCLI
-        path: ./HandBrake/build/HandBrakeCLI*
+        path: ./HandBrakeCLI*
 
     - name: Upload HandBrake GUI
       uses: actions/upload-artifact@v4
       with:
         name: HandBrakeGUI
-        path: ./HandBrake/build/gtk/src/ghb-*
+        path: ./ghb-*
 
 
   deploy_nightly:
@@ -69,22 +69,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
        
-      - name: Download Artifacts - CLI Linux
+      - name: Download Artifacts - CLI Ubuntu
         uses: actions/download-artifact@v4
         with:
           name: HandBrakeCLI
-          path: linux/
+          path: ubuntu/
 
-      - name: Download Artifacts - GUI Linux
+      - name: Download Artifacts - GUI Ubuntu
         uses: actions/download-artifact@v4
         with:
           name: HandBrakeGUI
-          path: linux/
+          path: ubuntu/
           
       # Generate Hashes
       - name: Generate SHA265 Hashes
         run: |
-          cd linux
+          cd ubuntu
           sha256sum * > sha256.txt
           cp sha256.txt ../.github/workflows/
           cd ..
@@ -92,24 +92,24 @@ jobs:
           sed -e 's/  / | /' -i sha256.txt
           sed -e 's/^/| /'  -i sha256.txt
           sed -e 's/$/ |/' -i sha256.txt
-          cat sha256.txt >> linux_rel_body.md
+          cat sha256.txt >> ubuntu_rel_body.md
       
       # Publishing the Release
       - name: Remove the old Release
         uses: dev-drprasad/delete-older-releases@v0.3.4
         with:
           keep_latest: 0
-          delete_tag_pattern: "linux"
+          delete_tag_pattern: "ubuntu"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
       - uses: ncipollo/release-action@v1
         with:
-          artifacts: "linux/*"
-          name: "Snapshots for Linux (Binary)"
-          bodyFile: .github/workflows/linux_rel_body.md
+          artifacts: "ubuntu/*"
+          name: "Snapshots for Ubuntu"
+          bodyFile: .github/workflows/ubuntu_rel_body.md
           prerelease: true
           replacesArtifacts: false
           allowUpdates: false
-          tag: linux
+          tag: ubuntu
           token: ${{ secrets.GITHUB_TOKEN }}
