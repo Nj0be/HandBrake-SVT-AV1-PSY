@@ -30,9 +30,9 @@ jobs:
         cargo install cargo-c
 
     - name: Build HandBrake Linux
-        uses: FFY00/build-arch-package@v1
-        with:
-          PKGBUILD: PKGBUILD
+      uses: FFY00/build-arch-package@v1
+      with:
+        PKGBUILD: PKGBUILD
 
     - name: Rename Artifacts
       run: |
