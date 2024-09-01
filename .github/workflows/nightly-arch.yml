@@ -10,9 +10,6 @@ jobs:
   build:
     name: Build on Arch
     runs-on: ubuntu-latest
-    container: 
-      image: archlinux:latest
-      options: --privileged
     steps:
     - uses: actions/checkout@v4
 
@@ -31,10 +28,12 @@ jobs:
       run: |
         cargo install cargo-c
 
-    - name: Build HandBrake Linux
-      uses: FFY00/build-arch-package@v1
+    - name: Build HandBrake Arch Linux
+      id: validate-pkgbuild
+      uses: 2m/arch-pkgbuild-builder@v1.16
       with:
-        PKGBUILD: PKGBUILD
+        target: pkgbuild
+        pkgname: .
 
     - name: Rename Artifacts
       run: |
