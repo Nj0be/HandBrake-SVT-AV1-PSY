@@ -29,11 +29,8 @@ jobs:
         cargo install cargo-c
 
     - name: Build HandBrake Arch Linux
-      id: validate-pkgbuild
-      uses: 2m/arch-pkgbuild-builder@v1.16
-      with:
-        target: pkgbuild
-        pkgname: .
+      id: makepkg
+      uses: edlanglois/pkgbuild-action@v1
 
     - name: Rename Artifacts
       run: |
