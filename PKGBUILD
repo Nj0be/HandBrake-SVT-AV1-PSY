@@ -7,8 +7,8 @@
 # Contributor: ponsfoot <cabezon dot hashimoto at gmail dot com>
 # Contributor: Stefan Husmann <stefan-husmann@t-online.de>
 
-pkgbase=handbrake-git
-pkgname=(handbrake-git handbrake-cli-git)
+pkgbase=handbrake-svt-av1-psy-git
+pkgname=(handbrake-svt-av1-psy-git handbrake-svt-av1-psy-cli-git)
 pkgver=1.8.0.r135.gdeb4c4578
 pkgrel=1
 pkgdesc="Multithreaded video transcoder. Enabled: x265, nvenc, fdk-aac, qsv, vce, numa, hardened. Last stable branch"
@@ -53,7 +53,7 @@ pkgver() {
     #--enable-vce
 }
 
-package_handbrake-git() {
+package_handbrake-svt-av1-psy-git() {
   pkgdesc="Multithreaded video transcoder"
   depends=("${_commondeps[@]}" "${_guideps[@]}")
   optdepends+=('gst-plugins-good: for video previews'
@@ -67,7 +67,7 @@ package_handbrake-git() {
   rm "$pkgdir/usr/bin/HandBrakeCLI"
 }
 
-package_handbrake-cli-git() {
+package_handbrake-svt-av1-psy-cli-git() {
   pkgdesc="Multithreaded video transcoder (CLI)"
   depends=("${_commondeps[@]}")
   provides=(handbrake-cli)
