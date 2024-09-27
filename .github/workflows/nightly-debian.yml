@@ -1,0 +1,115 @@
+name: Debian Build
+
+on:
+  schedule:
+    - cron:  '30 7 * * 1,5'
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build on Ubuntu
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Cargo-C Toolchain Cache
+      id: linux-cargo-c-toolchain
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cargo/bin/cargo-capi
+          ~/.cargo/bin/cargo-cbuild
+          ~/.cargo/bin/cargo-cinstall
+        key: linux-cargo-c-toolchain
+
+    - name: Setup Environment
+      run: |
+        sudo apt-get update
+        sudo apt-get install autoconf automake build-essential libass-dev libbz2-dev libfontconfig1-dev libfreetype6-dev libfribidi-dev libharfbuzz-dev libjansson-dev liblzma-dev libmp3lame-dev libnuma-dev libturbojpeg0-dev libssl-dev
+        sudo apt-get install libogg-dev libopus-dev libsamplerate-dev libspeex-dev libtheora-dev libtool libtool-bin libvorbis-dev libx264-dev libxml2-dev libvpx-dev make nasm ninja-build patch tar zlib1g-dev appstream
+        sudo pip3 install meson
+        sudo apt-get install gettext libglib2.0-dev libgtk-4-dev
+        sudo apt-get install libva-dev libdrm-dev llvm clang
+
+    - name: Setup Cargo-C Toolchain
+      if: steps.linux-cargo-c-toolchain.outputs.cache-hit != 'true'
+      run: |
+        cargo install cargo-c
+
+    - name: Download the Source Code
+      run: |
+        git clone https://github.com/HandBrake/HandBrake.git
+        ./patch.sh
+
+    - name: Build HandBrake Linux
+      run: |
+         cd HandBrake
+         ./configure --enable-qsv --enable-vce --enable-nvenc --enable-nvdec --launch-jobs=0 --launch
+         mv build/HandBrakeCLI ../HandBrakeCLI-$(date +'%Y%m%d')-master-x86_64
+         mv build/gtk/src/ghb ../ghb-$(date +'%Y%m%d')-master-x86_64
+
+    - name: Upload HandBrake CLI
+      uses: actions/upload-artifact@v4
+      with:
+        name: HandBrakeCLI
+        path: ./HandBrakeCLI*
+
+    - name: Upload HandBrake GUI
+      uses: actions/upload-artifact@v4
+      with:
+        name: HandBrakeGUI
+        path: ./ghb-*
+
+
+  deploy_nightly:
+    name: Deploy Nightly Build
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+       
+      - name: Download Artifacts - CLI Debian
+        uses: actions/download-artifact@v4
+        with:
+          name: HandBrakeCLI
+          path: debian/
+
+      - name: Download Artifacts - GUI Debian
+        uses: actions/download-artifact@v4
+        with:
+          name: HandBrakeGUI
+          path: debian/
+          
+      # Generate Hashes
+      - name: Generate SHA265 Hashes
+        run: |
+          cd debian
+          sha256sum * > sha256.txt
+          cp sha256.txt ../.github/workflows/
+          cd ..
+          cd .github/workflows/
+          sed -e 's/  / | /' -i sha256.txt
+          sed -e 's/^/| /'  -i sha256.txt
+          sed -e 's/$/ |/' -i sha256.txt
+          cat sha256.txt >> debian_rel_body.md
+      
+      # Publishing the Release
+      - name: Remove the old Release
+        uses: dev-drprasad/delete-older-releases@v0.3.4
+        with:
+          keep_latest: 0
+          delete_tag_pattern: "debian"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: "debian/*"
+          name: "Snapshots for Debian"
+          bodyFile: .github/workflows/debian_rel_body.md
+          prerelease: true
+          replacesArtifacts: false
+          allowUpdates: false
+          tag: debian
+          token: ${{ secrets.GITHUB_TOKEN }}

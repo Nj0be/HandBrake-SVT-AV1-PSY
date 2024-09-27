@@ -1,0 +1,42 @@
+#!/usr/bin/make -f
+
+include /usr/share/dpkg/architecture.mk
+
+export DEB_LDFLAGS_MAINT_APPEND=-Wl,-z,defs
+
+# enable qsv on amd64
+ifeq (,$(filter-out amd64,$(DEB_HOST_ARCH)))
+confflags += --enable-qsv
+# work around missing -I for mfxvideo.h
+export DEB_CFLAGS_MAINT_APPEND=-I/usr/include/vpl
+else
+confflags += --disable-qsv
+endif
+
+# enable nvenc on amd64 arm64 i386
+ifeq (,$(filter-out amd64 arm64 i386,$(DEB_HOST_ARCH)))
+confflags += --enable-nvenc
+else
+confflags += --disable-nvenc
+endif
+
+%:
+	dh $@ --builddirectory=$(DEB_BUILD_GNU_TYPE)
+
+override_dh_auto_configure:
+	bash ./configure \
+		--prefix=/usr \
+		--host=$(DEB_HOST_GNU_TYPE) \
+		--build=$(DEB_BUILD_GNU_TYPE) \
+		--debug=std \
+		--disable-fdk-aac \
+		--disable-numa \
+		--enable-x265 \
+		--disable-df-fetch \
+		--disable-df-verify \
+		$(confflags) \
+		CC="$(CC)" CXX="$(CXX)" \
+		CFLAGS="$(CFLAGS)" CXXFLAGS="$(CXXFLAGS)" LDFLAGS="$(LDFLAGS)" CPPFLAGS="$(CPPFLAGS)"
+
+override_dh_installchangelogs:
+	dh_installchangelogs NEWS.markdown

@@ -1,0 +1,928 @@
+handbrake (1.8.2+ds1-1) unstable; urgency=medium
+
+  * New upstream version 1.8.2+ds1
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Thu, 15 Aug 2024 00:05:45 +0200
+
+handbrake (1.8.1+ds1-2) unstable; urgency=medium
+
+  * Upload to unstable
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sun, 28 Jul 2024 20:09:21 +0200
+
+handbrake (1.8.1+ds1-1) experimental; urgency=medium
+
+  * New upstream version 1.8.1+ds1
+    - Fix build with ffmpeg 7.0 (Closes: #1072423)
+  * debian/control:
+    - Bump Standards-Version
+    - Bump libav* build dependencies
+    - Add pkgconf to Build-Depends
+    - Switch libgtk-3-dev to libgtk-4-dev
+    - Remove gstreamer (Build-)Depends
+  * debian/patches: Refresh patches
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sat, 13 Jul 2024 23:08:59 +0200
+
+handbrake (1.7.2+ds1-1) unstable; urgency=medium
+
+  * New upstream version 1.7.2+ds1
+  * debian/control: Process SVG icons with scour
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Fri, 29 Dec 2023 22:21:24 +0100
+
+handbrake (1.7.1+ds1-1) unstable; urgency=medium
+
+  [ Diederik de Haas ]
+  * d/gbp.conf: Set compression to xz
+  * d/control: Replace transitional B-Ds with their replacements
+
+  [ Sebastian Ramacher ]
+  * New upstream version 1.7.1+ds1
+  * debian/patches:
+    - Refresh patches
+    - Remove ambient view support added via contrib patches
+  * debian/rules:
+    - Remove no longer supported option
+    - Fix missing include paths for vpl
+  * debian/control:
+    - BD on libsvtav1enc-dev
+    - Bump ffmpeg BDs to >= 7:6.1
+    - Add BDs on meson and ninja-build
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Fri, 01 Dec 2023 23:51:38 +0100
+
+handbrake (1.6.1+ds1-2) unstable; urgency=medium
+
+  * debian/patches: Fix build with ffmpeg 6.0 (Closes: #1041378)
+    Thanks to Daniel Vacek.
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Mon, 21 Aug 2023 23:44:46 +0200
+
+handbrake (1.6.1+ds1-1) unstable; urgency=medium
+
+  [ Alban Browaeys ]
+  * Enable Intel QSV encoding
+
+  [ Sebastian Ramacher ]
+  * New upstream version 1.6.1+ds1
+  * debian/patches: Remove patches included upstream
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sun, 29 Jan 2023 11:20:16 +0100
+
+handbrake (1.6.0+ds1-2) unstable; urgency=medium
+
+  * debian/patches: Handle sse2neon to fix FTBFS on arm64.
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sun, 08 Jan 2023 20:58:13 +0100
+
+handbrake (1.6.0+ds1-1) unstable; urgency=medium
+
+  * New upstream version 1.6.0+ds1
+  * debian/patches:
+    - Refresh patches
+    - Apply upstream patch to fix build
+  * debian/control: Bump Standards-Version
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Thu, 05 Jan 2023 16:06:42 +0100
+
+handbrake (1.5.1+ds1-3) unstable; urgency=medium
+
+  * debian/patches: Fix another ffmpeg 5 issue (Closes: #1017151)
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Fri, 09 Sep 2022 21:32:46 +0200
+
+handbrake (1.5.1+ds1-2) unstable; urgency=medium
+
+  * debian/patches: Apply upstream patch to fix build with ffmpeg 5.0 (Closes:
+    #1004828)
+  * debian/control: Bump Standards-Version
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sat, 30 Jul 2022 22:53:28 +0200
+
+handbrake (1.5.1+ds1-1) unstable; urgency=medium
+
+  * New upstream version 1.5.1+ds1
+  * debian/patches: Refresh patches
+  * debian/:
+    - Disable qsv until libvpl is available
+    - Enable nvenc
+  * debian/copyright: Update copyright years
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sat, 15 Jan 2022 17:18:42 +0100
+
+handbrake (1.4.2+ds1-1) unstable; urgency=medium
+
+  [ Debian Janitor ]
+  * Set upstream metadata fields: Bug-Database, Bug-Submit, Security-Contact.
+  * Remove constraints unnecessary since buster
+
+  [ Sebastian Ramacher ]
+  * New upstream version 1.4.2+ds1
+  * debian/control: Bump Standards-Version
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Tue, 05 Oct 2021 09:20:50 +0200
+
+handbrake (1.4.1+ds1-1) unstable; urgency=medium
+
+  [ Debian Janitor ]
+  * Remove constraints unnecessary since buster
+
+  [ Sebastian Ramacher ]
+  * New upstream release
+  * debian/rules: Specify --host and --build
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Thu, 26 Aug 2021 14:36:20 +0200
+
+handbrake (1.4.0+ds1-2) unstable; urgency=medium
+
+  * Upload to unstable
+  * debian/rules: Fix architecture check
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sun, 08 Aug 2021 11:50:18 +0200
+
+handbrake (1.4.0+ds1-1) experimental; urgency=medium
+
+  * New upstream release
+  * debian/patches: Refresh patches
+  * debian/control: Add B-D on libturbojpeg0-dev
+  * debian/: Enable libmfx on amd64
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sat, 07 Aug 2021 22:34:22 +0200
+
+handbrake (1.3.3+ds1-1) experimental; urgency=medium
+
+  * New upstream release
+  * debian/watch: Point to github
+  * debian/patches: Refresh patches
+  * debian/control:
+    - Bump Standards-Version
+    - Bump debhelper compat to 13
+  * debian/copyright: Fix paths
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Mon, 26 Apr 2021 12:07:33 +0200
+
+handbrake (1.3.1+ds1-2) unstable; urgency=medium
+
+  [ Debian Janitor ]
+  * Set upstream metadata fields: Repository.
+
+  [ Sebastian Ramacher ]
+  * debian/control:
+    - Remove unused B-D
+    - Bump Standards-Version
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Wed, 18 Mar 2020 17:51:24 +0100
+
+handbrake (1.3.1+ds1-1) unstable; urgency=medium
+
+  [ Fabian Greffrath ]
+  * Remove myself from uploaders.
+
+  [ Sebastian Ramacher ]
+  * New upstream release
+  * debian/patches: Refresh
+  * debian/: Remove incorrectly installed examples
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Tue, 07 Jan 2020 20:03:31 +0100
+
+handbrake (1.3.0+ds1-1) unstable; urgency=medium
+
+  [ Ondřej Nový ]
+  * Use debhelper-compat instead of debian/compat
+  * Bump Standards-Version to 4.4.0
+  * Bump Standards-Version to 4.4.1
+
+  [ Sebastian Ramacher ]
+  * New upstream release (Closes: #944552)
+    - Build with Python 3 (Closes: #936693)
+  * debian/control:
+    - Bump debhelper compat to 12
+    - Build-Depend on python3
+    - Set RRR: no
+    - Remove libtool and libsamplerate0-dev from Build-Depends
+  * debian/patches:
+    - Refresh patches
+    - Properly link with -ldl
+  * debian/rules: Build with --disable-numa
+  * debian/copyright:
+    - Update copyright years
+    - Document appdata license
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Mon, 11 Nov 2019 22:27:39 +0100
+
+handbrake (1.2.2+ds1-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sun, 24 Feb 2019 21:21:29 +0100
+
+handbrake (1.2.0+ds1-1) unstable; urgency=medium
+
+  * New upstream release.
+  * debian/patches:
+    - Refresh patches.
+    - Add --disable-nvenc.
+  * debian/rules:
+    - Build with --disable-nvenc.
+    - Execute configure with bash.
+  * debian/control:
+    - Update ffmpeg related B-Ds.
+    - Drop libnotify-dev.
+    - Add B-Ds on liblzma-dev and libspeex-dev.
+    - Bump Standards-Version.
+  * debian/source/lintian-overrides: Removed, lintian was fixed.
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Fri, 28 Dec 2018 14:25:38 +0100
+
+handbrake (1.1.2+ds1-1) unstable; urgency=medium
+
+  * New upstream release.
+  * debian/control:
+    - Bump Standards-Version.
+    - Mark as Architecture: any. (Closes: #870668)
+  * debian/source/lintian-overrides: Override
+    incomplete-creative-commons-license. See ##906284 for details.
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Mon, 10 Sep 2018 20:20:59 +0200
+
+handbrake (1.1.1+ds1-2) unstable; urgency=medium
+
+  * Upload to unstable.
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Wed, 18 Jul 2018 14:42:23 +0200
+
+handbrake (1.1.1+ds1-1) experimental; urgency=medium
+
+  * New upstream release.
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Fri, 29 Jun 2018 19:07:33 +0200
+
+handbrake (1.1.0+ds1-1) experimental; urgency=medium
+
+  [ Ondřej Nový ]
+  * d/copyright: Use https protocol in Format field
+  * d/control: Set Vcs-* to salsa.debian.org
+  * d/changelog: Remove trailing whitespaces
+
+  [ Felipe Sateler ]
+  * Change maintainer address to debian-multimedia@lists.debian.org
+
+  [ Sebastian Ramacher ]
+  * New upstream release.
+    - Fix build with ffmpeg 4.0. (Closes: #888368)
+  * debian/copyright: Document copyright of graphics/*.
+  * debian/patches: Refresh patches.
+  * debian/control:
+    - Bump Standards-Version
+    - Update ffmpeg related build dependencies.
+    - Add nasm to build dependencies.
+  * debian/: Bump debhelper compat version to 11.
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Tue, 17 Apr 2018 21:44:16 +0200
+
+handbrake (1.0.7+ds1-2) unstable; urgency=medium
+
+  * Upload to unstable.
+  * debian/control: Bump Standards-Version.
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Mon, 03 Jul 2017 18:31:08 +0200
+
+handbrake (1.0.7+ds1-1) experimental; urgency=medium
+
+  * New upstream version.
+  * debian/patches: Refreshed.
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sat, 15 Apr 2017 20:49:31 +0200
+
+handbrake (1.0.3+ds1-1) experimental; urgency=medium
+
+  [ Sebastian Ramacher ]
+  * debian/control:
+    - Remove Rogério Brito from Uploaders. Thanks for all your
+      work on handbrake! (Closes: #833172)
+    - Switch to any-powerpc. (Closes: #832072)
+    - B-D on libavfilter-dev.
+    - B-D on libvpx-dev and libopus-dev to avoid patching upstream build
+      system.
+  * debian/rules: Update path to NEWS.
+  * debian/{compat,control}: Bump debhelper compat to 10.
+  * debian/copyright: Update copyright years and remove unused paragraphs.
+
+  [ Fabian Greffrath ]
+  * New upstream version. (Closes: #850446)
+    - Build reproducibly. (Closes: #834192)
+  * Add Build-Depends: libjansson-dev.
+  * Disable distfile downloads and data verification in configure call.
+  * Disable 001 and 003 patches, refresh 005 patch, force-refresh 002 patch.
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sun, 05 Mar 2017 11:51:43 +0100
+
+handbrake (0.10.5+ds1-2) unstable; urgency=medium
+
+  * Upload to unstable.
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sun, 17 Apr 2016 20:46:08 +0200
+
+handbrake (0.10.5+ds1-1) experimental; urgency=medium
+
+  * New upstream release.
+  * debian/rules: Remove dh_strip and dh_install override.
+  * debian/copyright: Update copyright years.
+  * debian/patches: Refreshed.
+  * debian/control:
+    - Bump Standards-Version.
+    - Bump ffmpeg related B-D to >= 7:3.0~.
+    - Update Vcs-Git.
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Mon, 11 Apr 2016 19:41:49 +0200
+
+handbrake (0.10.2+ds1-2) unstable; urgency=medium
+
+  * Migrate to automatic dbg packages.
+    - debian/control:
+      + Bump B-D on debhelper to (>= 9.20151219).
+      + Remove handbrake-dbg.
+    - debian/rules: Run dh_strip with --ddeb-migration.
+  * debian/control:
+    - Update Vcs-Browser.
+    - Remove obsolete Pre-Depends.
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sun, 20 Dec 2015 22:07:50 +0100
+
+handbrake (0.10.2+ds1-1) unstable; urgency=medium
+
+  * New upstream version.
+  * debian/control: Remove obsolete Breaks, Replaces and Conflicts.
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Wed, 10 Jun 2015 21:23:31 +0200
+
+handbrake (0.10.1+ds1-2) unstable; urgency=medium
+
+  * Upload to unstable.
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sat, 25 Apr 2015 09:47:05 +0200
+
+handbrake (0.10.1+ds1-1) experimental; urgency=medium
+
+  * New upstream release.
+  * debian/control: Remove unused Build-Depends.
+  * debian/watch: Update for new download location.
+  * debian/copyright: Update copyright years.
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Thu, 26 Mar 2015 00:58:47 +0100
+
+handbrake (0.10.0+dfsg1-2) experimental; urgency=medium
+
+  * Enable x265 support (Closes: #773939)
+    - debian/control: Add libx265-dev to Build-Depends.
+    - debian/rules: Build with --enable-x265.
+    - debian/patches: Refresh patches patches for x265 support.
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Fri, 26 Dec 2014 19:44:21 +0100
+
+handbrake (0.10.0+dfsg1-1) experimental; urgency=medium
+
+  * New upstream release.
+  * debian/patches:
+    - Removed 004-link-pthread.patch and 006-add-video-ogg.patch. Both were
+      applied upstream.
+    - Refresh 005-use-libtoolize.patch. Parts were applied upstream.
+  * debian/{gbp.conf,control}: Work in experimental branch.
+  * debian/{copyright,rules}: Use uscan to repack upstream tarball.
+  * debian/watch: Adopt Debian version scheme.
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Wed, 26 Nov 2014 15:31:56 +0100
+
+handbrake (0.9.9+svn6422+dfsg1-2) unstable; urgency=medium
+
+  * debian/control:
+    - Fix capitalization of Ogg. (Closes: #754142)
+    - Fix spelling of GTK+.
+  * debian/patches:
+    - 004-link-pthread.patch: Link with pthread on kfreebsd-*. Thanks to Petr
+      Salinger for the patch. (Closes: #730976)
+    - 005-use-libtoolize.patch: Check for libtoolize instead of
+      libtool. (Closes: #761757)
+    - 006-add-video-ogg.patch: Add video/ogg to list of mime types in desktop
+      file. (Closes: #763175)
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sat, 04 Oct 2014 17:31:19 +0200
+
+handbrake (0.9.9+svn6422+dfsg1-1) unstable; urgency=medium
+
+  [ Fabian Greffrath ]
+  * Remove obsolete paragraph about lacking encoding and muxing
+    capabilities from package descriptions, remove debian/TODO
+    likewise (Closes: #749163).
+
+  [ Sebastian Ramacher ]
+  * New upstream snapshot based on revision 6422.
+  * debian/control:
+    - Drop libmkv-dev from Build-Depends. As of 0.9.9+svn6032+dfsg1-1 it is
+      not used anymore.
+    - Remove libwebkit-dev from Build-Depens. HandBrake is now built without
+      update checks that requires WebKit.
+    - Bump libdvdnav-dev in Build-Depends to >= 4.9.0.
+    - Add myself to Uploaders.
+    - Bump Standards-Version to 3.9.6. No changes required.
+  * debian/rules:
+    - Remove obsolete configure flags.
+    - Build with --disable-gtk-update-checks and --disable-x265. x265 is not
+      packaged yet.
+    - Pass CPPFLAGS to configure.
+    - Remove obsolete overrides.
+  * debian/patches:
+    - Refresh patches.
+    - 004-link-fix-add-ldl.patch: Removed, no longer needed.
+    - 003-remove-vpx.patch: Do not link against libvpx. Everything is handled
+      by libav and none of libvpx's symbols are used.
+  * debian/copyright: Update copyright years
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sat, 27 Sep 2014 17:31:28 +0200
+
+handbrake (0.9.9+svn6032+dfsg1-2) unstable; urgency=medium
+
+  * Team upload.
+  * Upload to unstable.
+  * debian/watch: Mangle Debian version.
+  * debian/control:
+    - Remove Andres Mejia from Uploaders since he is MIA. Thanks Andres for
+      maintaining handbrake. (Closes: #743535)
+    - Bump B-D on yasm to >= 1.2. (Closes: #743760)
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Tue, 13 May 2014 22:43:04 +0200
+
+handbrake (0.9.9+svn6032+dfsg1-1) experimental; urgency=low
+
+  [ Jackson Doak ]
+  * Make handbrake-dbg architecture field match the other packages
+  * Bump standards-version to 3.9.5
+  * Use canonical vcs fields
+  * Update changelog
+
+  [ Reinhard Tartler ]
+  * New upstream snapshot (based on upstream svn r6022)
+  * Tighten build dependency on libdvdnav
+  * Dropped patches that no longer apply
+  * Refresh and reorganize patches
+  * Disable embedded library copies: libmkv, faac and mpv2
+  * Add patch to fix linking by adding ldl to LDFLAGS
+  * Compile against gtk+3
+  * Drop patches that are no longer needed
+  * Bump requirement on liba52-0.7.4-dev
+  * Compile against libav 10
+
+ -- Reinhard Tartler <siretart@tauware.de>  Sat, 15 Feb 2014 15:17:07 +0000
+
+handbrake (0.9.9+dfsg-2~2.gbpa4c3e9) unstable; urgency=low
+
+  * Make handbrake-dbg architecture field match the other packages
+  * Bump standards-version to 3.9.5
+  * Use canonical vcs fields
+
+ -- Jackson Doak <noskcaj@ubuntu.com>  Wed, 18 Dec 2013 16:07:47 +1100
+
+handbrake (0.9.9+dfsg-1~2.gbpa4c3e9) unstable; urgency=low
+
+  [ Rogério Brito ]
+  ** SNAPSHOT build @a4c3e9848f6d67c89e3775f1f40d2704a425c54e **
+
+  * Remove gitignore to avoid conflicts with merges from upstream.
+  * Imported Upstream version 0.9.9
+  * Imported Upstream version 0.9.9+dfsg
+  * debian/patches: Refresh all patches.
+  * debian/control:
+    + Fix order of build-depends.
+    + Remove build-dep on wget.
+  * debian/patches: Add patch to prepare compilation with gstreamer 1.x.
+  * debian/control:
+    + Change (build-)deps to gstreamer 1.x.
+    + Add recommends on gstreamer1.0-{pulseaudio,alsa}.
+    + Add authorship to patch 'use older libmkv'.
+    + Remove many patches unreferenced in the series file.
+
+  [ Reinhard Tartler ]
+  * Upload to unstable
+  * Do not require neither curl nor wget in the build environment.
+
+ -- Reinhard Tartler <siretart@tauware.de>  Tue, 26 Nov 2013 21:30:07 -0500
+
+handbrake (0.9.8+dfsg2+git0b44ec-2) experimental; urgency=low
+
+  The changelog entry for -1 was incomplete and has been merged into -2.
+
+  [ Paul Gevers ]
+  * New upstream releases with fixes for:
+    - crash while scanning dvd features (upstream svn r4605, closes: #691067)
+    - Fixes compilation against libav9 (closes: #701039)
+  * Patches applied upstream or obsolete:
+    - 0001-libhb-Fix-erroneous-memcpy-used-with-overlapping-mem.patch
+    - 0002-Fix-include-with-the-system-s-libav.patch
+    - 0007-Fix-for-compilation-with-Debian-s-libbluray.patch
+    - 0013-format-security.patch
+    - Refreshed other patches
+  * debian/control: Make some build-dependencies more explicit
+  * Add libavresample-dev to build dep and version the one on libavutil-dev
+
+  [ Fabian Greffrath ]
+  * Fix FTBFS on hurd-i386, thanks Pino Toscano (Closes: #693012).
+  * Add a debian/TODO file to attract potential contributors. ;)
+  * Rename handbrake-gtk to handbrake.
+  * Remove misleading reference to non-existant Info page for handbrake-cli,
+    thanks Helge Kreutzmann (Closes: #696471).
+
+  [ Reinhard Tartler ]
+  * add/update patches to allow compilation with unpatched system libraries:
+    - 0014-Use-unpatched-a52.patch to unbreak
+    - 0017-fixup-libmkv.patch
+  * use bzip2 compression
+  * upload to experimental
+
+ -- Reinhard Tartler <siretart@tauware.de>  Sat, 16 Mar 2013 17:07:54 +0100
+
+handbrake (0.9.8+dfsg1-2) experimental; urgency=low
+
+  [ Dmitry Smirnov ]
+  * adding handbrake-dbg package
+  * adding man pages
+  * libdvdread4 (>= 4.2.0+20120521-3) to Recommends:
+  * removing ccache (obsolete) from Build-depends
+
+  [ Fabian Greffrath ]
+  * Versioned recommends are moot, use versioned Breaks instead.
+
+  [ Reinhard Tartler ]
+  * Fix version numbering.
+    The git snapshot id really needs to be part of the
+    upstream version. I'm leaving that out for now to avoid having to
+    reroll a new tarball, we'll handle it properly on the next
+    upstream version.
+
+ -- Reinhard Tartler <siretart@tauware.de>  Sun, 21 Oct 2012 18:28:51 +0200
+
+handbrake (0.9.8+dfsg1-1~19.gbpc8b9ba) experimental; urgency=low
+
+  * Team upload.
+
+  [ Rogério Brito ]
+  * Note: This is an almost complete rework of the packaging included in
+    previous iterations of handbrake. This changelog reflects only a
+    fraction of the work that went into make it suitable for Debian and
+    involved the work of many people. For the complete list of changes,
+    we kindly refer you to the git repository for all the details.
+  * Many janitorial fixes to the packaging, including:
+    + Force bug reporting to go Debian's BTS.
+    + Convert the package to format 3.0 (quilt).
+    + Add me as Maintainer.
+    + Add Reinhard Tartler to Uploaders.
+    + Install upstream's changelog.
+    + Add DEP-3 metadata to patches.
+    + First approximation of a DEP-5-like format.
+    + Use max xz compression with 'extreme' strategy for debs.
+    + Add versioned pre-depends on dpkg for xz compression.
+  * Mark patches that were forwarded upstream.
+  * Fix build-dependencies/compilation fixes:
+    + Include libdbus-glib-1-dev, libgtk-2.0-dev.
+    + Remove unused libxvidcore-dev, libfaac-dev.
+    + Don't use external sources for libraries that we already have
+      in debian, by including (but not limited to):
+      libx264-dev, libbluray-dev, libdvdnav-dev, libdvdread-dev,
+      libmpeg2-4-dev, various components of libav.
+      Thanks to Daniel Baumann for uploading suitable, new versions
+      libdvd{nav,read} in time.
+  * debian/patches:
+    + 0001-Remove-encoding-...:
+      Remove encoding indication from desktop file, spotted by lintian.
+    + 0002-Fix-include-with-the-system-s-libav:
+      Use Debian's libav instead of ffmpeg 0.7 downloaded and patched
+      at build time. Thanks to Fabian Greffrath for the cleaner solution.
+    + 0003-Remove-embedded-...:
+    + 0004-Enable-compilation-on-Debian-arches...:
+      Adapt kFreeBSD compilation patch to work with the HURD. Thanks to
+      Pino Toscano for the review and modifications.
+    + 0005-libhb-Fix-compilation-with-mp4v2-v1.9.1-...:
+    + 0006-LinGUI-Allow-user-to-pass-libavcodec-settings-...:
+    + 0007-Fix-for-compilation-with-Debian-s-libbluray:
+    + 0008-Fix-for-compilation-with-Debian-s-libdca:
+    + 0010-Remove-FAAC-dependency:
+      Patch to remove use of FAAC---it is non-free and there are good
+      enough solutions for use as substitutes.
+    + 0011-First-try-at-removing-some-of-mp4v2:
+      First try at removing some of mp4v2---linking mp4v2 against
+      handbrake results in undistributable binaries, which poses a problem
+      for Debian.
+  * debian/patches:
+    + Add 0014-Use-unpatched-a52.patch for use with future releases.
+  * debian/patches:
+    + Add 0015-use-metadata-reading-from-libav.patch to avoid using mp4v2
+      and, therefore, a license problem with linking MPL1.1 code.
+  * Wrap long lines in the changelog.
+  * debian/patches: Add patch to fix memcpy with overlapping memory regions.
+  * Imported Upstream version 0.9.8
+  * debian/patches:
+    + 0001-Remove-encoding-...: remove, applied upstream.
+    + 0004-Enable-compilation-on-Debian-arches...: partially applied
+      upstream, adjust.
+    + 0006-LinGUI-Allow-user-to-pass-libavcodec-settings-...: remove,
+      applied upstream.
+    + 0011-First-try-at-removing-some-of-mp4v2: partially applied
+      upstream, adjust.
+    + 0012-FLAGS.patch: remove, applied upstream.
+    + Refresh remaining patches.
+    + 0016-...: Use unpatched libmkv for the moment.
+  * debian/rules: Simplify, after changes accepted upstream.
+
+  [ Andres Mejia ]
+  * Change Priority to optional.
+  * Add myself to Uploaders field.
+  * Add default gbp options to enable pristine-tar.
+
+  [ Reinhard Tartler ]
+  * fix my email address
+  * Upload to experimental
+  * Remove ccache diversion
+  * Prune the following subdirectories from the upstream tarball:
+     - contrib/
+     - download/
+     - macosx/
+     - win/
+
+  [ Fabian Greffrath ]
+  * Bring master branch back to pristine upstream branch + patches
+  * Add versions to build-dependencies on libdvdnav-dev and libdvdread-dev.
+  * Consider CFLAGS, CPPFLAGS and LDFLAGS in libhb build and fix format
+    string security errors.
+  * Filter optimization and debug flags out of dpkg-buildflags.
+  * Fix lintian warnings WRT debian/changelog.
+  * Some cosmetic changes to debian/control.
+  * Simplify debian/patches/0003-Remove-embedded-downloaded-....patch
+  * Set LDFLAGS in debian/rules instead of hard-coding them.
+  * Simplify debian/handbrake-gtk.install.
+  * Improvements to 0010-Remove-FAAC-dependency.patch:
+  * Get rid of libmp4v2 and thus MP4 muxing and fall back to MKV instead.
+  * Mention in the package description that we have ripped out libfaac and
+    libmp4v2.
+  * Add some copyright holders and LGPL-licensed files to debian/copyright.
+  * Add debian/README.source with instructions and reasons to repackage
+    the source tarball when handbrake gets eventually uploaded to Debian.
+  * Add myself to Uploaders.
+
+ -- Reinhard Tartler <siretart@tauware.de>  Sun, 30 Sep 2012 18:19:41 +0200
+
+handbrake (0.9.6-0.1) unstable; urgency=low
+
+  * Rebuild against libx264-122.
+  * Move to debhelper 9 and add a new patch 04_format-security to fix the
+    build with hardened flags.
+
+ -- Christian Marillat <marillat@debian.org>  Sat, 17 Mar 2012 17:17:22 +0100
+
+handbrake (0.9.6-0.0) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Christian Marillat <marillat@debian.org>  Wed, 29 Feb 2012 08:44:28 +0100
+
+handbrake (0.9.5-0.10) unstable; urgency=low
+
+  * Rebuild against libx264-120.
+
+ -- Christian Marillat <marillat@debian.org>  Wed, 25 Jan 2012 11:07:21 +0100
+
+handbrake (0.9.5-0.9) unstable; urgency=low
+
+  * New patch 04_use-TEMP from git to use TEMP or TEMPDIR environment
+    variables for location of tmp directory.  Falls back to /tmp if neither
+    are set (Thanks to martin f krafft for the bug report).
+
+ -- Christian Marillat <marillat@debian.org>  Sat, 05 Nov 2011 11:18:16 +0100
+
+handbrake (0.9.5-0.8) unstable; urgency=low
+
+  * Rebuild against external libmp4v2-1.
+
+ -- Christian Marillat <marillat@debian.org>  Tue, 18 Oct 2011 09:23:29 +0200
+
+handbrake (0.9.5-0.7) unstable; urgency=low
+
+  * Rebuild against libx264-118.
+
+ -- Christian Marillat <marillat@debian.org>  Mon, 26 Sep 2011 08:16:41 +0200
+
+handbrake (0.9.5-0.6) unstable; urgency=low
+
+  * Rebuild against linotify4.
+
+ -- Christian Marillat <marillat@debian.org>  Sat, 06 Aug 2011 18:26:31 +0200
+
+handbrake (0.9.5-0.5) unstable; urgency=low
+
+  * Rebuild against libx264-116.
+
+ -- Christian Marillat <marillat@debian.org>  Wed, 13 Jul 2011 16:57:03 +0200
+
+handbrake (0.9.5-0.4) unstable; urgency=low
+
+  * Rebuild against libx264-115.
+  * Remove libhal-storage-dev from Build-depends.
+  * Add a mpeg2 patch from upstream to fix a gcc 4.6 bug.
+
+ -- Christian Marillat <marillat@debian.org>  Thu, 02 Jun 2011 10:02:39 +0200
+
+handbrake (0.9.5-0.3) unstable; urgency=low
+
+  * Rebuild against libx264-114.
+  * debian/control Added kfreebsd-amd64 in Architecture: field.
+
+ -- Christian Marillat <marillat@debian.org>  Sun, 06 Mar 2011 18:58:08 +0100
+
+handbrake (0.9.5-0.2) unstable; urgency=low
+
+  * Use make/variant/linux.defs instead of make/variant/freebsd.defs to
+    build the kfreebsd package.
+
+ -- Christian Marillat <marillat@debian.org>  Sat, 29 Jan 2011 12:07:25 +0100
+
+handbrake (0.9.5-0.1) unstable; urgency=low
+
+  * Added libass-dev in Build-Depends.
+
+ -- Christian Marillat <marillat@debian.org>  Sat, 15 Jan 2011 11:17:36 +0100
+
+handbrake (0.9.5-0.0) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Christian Marillat <marillat@debian.org>  Sat, 15 Jan 2011 01:18:41 +0100
+
+handbrake (0.9.4+svn20100902-0.1) unstable; urgency=low
+
+  * New upstream  release.
+  * Arch should be only amd64, i386, kfreebsd-i386 and powerpc.
+
+ -- Christian Marillat <marillat@debian.org>  Fri, 14 Jan 2011 19:44:22 +0100
+
+handbrake (0.9.4+svn20100902-0.0) unstable; urgency=low
+
+  * New svn release (3506).
+  * Remove 02_no-mm_flags patch (Fix crash with high profile and DVD).
+  * Build against latest x264 who add options for trellis and psy-trellis
+    for cavlc.
+
+ -- Christian Marillat <marillat@debian.org>  Fri, 03 Sep 2010 10:09:57 +0200
+
+handbrake (0.9.4+svn20100726-0.0) unstable; urgency=low
+
+  * New svn release (3460).
+
+ -- Christian Marillat <marillat@debian.org>  Mon, 26 Jul 2010 12:07:07 +0200
+
+handbrake (0.9.4+svn20100705-0.0) unstable; urgency=low
+
+  * New svn release (3428).
+  * Added gstreamer0.10-ffmpeg and gstreamer0.10-x in Recommends. These
+    packages are necessary to display video preview.
+  * As the build is fixed upstream, remove Build-Conflicts for libva-dev.
+
+ -- Christian Marillat <marillat@debian.org>  Mon, 05 Jul 2010 19:06:54 +0200
+
+handbrake (0.9.4+svn20100624-0.0) unstable; urgency=low
+
+  * New svn release (3402).
+  * This version add a preset for iPad.
+
+ -- Christian Marillat <marillat@debian.org>  Thu, 24 Jun 2010 09:30:56 +0200
+
+handbrake (0.9.4+svn20100613-0.0) unstable; urgency=low
+
+  * New svn release (3380).
+  * Update 04_kfreebsd patch as kfreebsd doesn't have udev.
+
+ -- Christian Marillat <marillat@debian.org>  Sun, 13 Jun 2010 12:00:03 +0200
+
+handbrake (0.9.4+svn20100607-0.0) unstable; urgency=low
+
+  * New svn release (3365).
+
+ -- Christian Marillat <marillat@debian.org>  Mon, 07 Jun 2010 11:25:39 +0200
+
+handbrake (0.9.4+svn20100419-0.0) unstable; urgency=low
+
+  * New svn release (3242).
+  * Added support for kfreebsd-i386.
+
+ -- Christian Marillat <marillat@debian.org>  Mon, 19 Apr 2010 15:18:58 +0200
+
+handbrake (0.9.4+svn20100314-0.0) unstable; urgency=low
+
+  * New svn release (3167).
+
+ -- Christian Marillat <marillat@debian.org>  Sun, 14 Mar 2010 12:54:53 +0100
+
+handbrake (0.9.4+svn20100208-0.2) unstable; urgency=low
+
+  * Fix handbrake version number.
+
+ -- Christian Marillat <marillat@debian.org>  Sat, 13 Mar 2010 16:10:48 +0100
+
+handbrake (0.9.4+svn20100208-0.1) unstable; urgency=low
+
+  * Fix the build for powerpc.
+
+ -- Christian Marillat <marillat@debian.org>  Sun, 21 Feb 2010 14:59:30 +0100
+
+handbrake (0.9.4+svn20100208-0.0) unstable; urgency=low
+
+  * New svn release (3104).
+
+ -- Christian Marillat <marillat@debian.org>  Mon, 08 Feb 2010 19:07:33 +0100
+
+handbrake (0.9.4-0.1) unstable; urgency=low
+
+  * Build included ffmpeg with ccache.
+
+ -- Christian Marillat <marillat@debian.org>  Thu, 26 Nov 2009 00:14:46 +0100
+
+handbrake (0.9.4-0.0) unstable; urgency=low
+
+  * New usptream release.
+
+ -- Christian Marillat <marillat@debian.org>  Wed, 25 Nov 2009 23:37:58 +0100
+
+handbrake (0.9.3+svn20091021-0.0) unstable; urgency=low
+
+  * New svn release (2893).
+  * rebuild against libx264-78.
+
+ -- Christian Marillat <marillat@debian.org>  Wed, 21 Oct 2009 20:12:46 +0200
+
+handbrake (0.9.3+svn20091012-0.0) unstable; urgency=low
+
+  * New svn release (2877).
+
+ -- Christian Marillat <marillat@debian.org>  Mon, 12 Oct 2009 11:40:28 +0200
+
+handbrake (0.9.3+svn2773-0.2) unstable; urgency=low
+
+  * Rebuild against libx264-76.
+
+ -- Christian Marillat <marillat@debian.org>  Tue, 06 Oct 2009 11:21:37 +0200
+
+handbrake (0.9.3+svn2773-0.1) unstable; urgency=low
+
+  * Rebuild against latest libfaad-dev package.
+
+ -- Christian Marillat <marillat@debian.org>  Sat, 19 Sep 2009 15:11:05 +0200
+
+handbrake (0.9.3+svn2773-0.0) unstable; urgency=low
+
+  * Svn release, the unstable package doesn't work with the latest
+    libgtk2.0-0 package (2.16.6-1).
+
+ -- Christian Marillat <marillat@debian.org>  Sun, 13 Sep 2009 17:14:08 +0200
+
+handbrake (0.9.3-0.5) unstable; urgency=low
+
+  * debian/rules remove call to dh_desktop.
+
+ -- Christian Marillat <marillat@debian.org>  Mon, 11 May 2009 20:50:08 +0200
+
+handbrake (0.9.3-0.4) unstable; urgency=low
+
+  * Remove a call to svn and remove subversion from Build-Depends.
+  * Fix build for mipsel and sparc.
+
+ -- Christian Marillat <marillat@debian.org>  Mon, 11 May 2009 19:56:52 +0200
+
+handbrake (0.9.3-0.3) unstable; urgency=low
+
+  * Added support for ccache.
+  * make the build more verbose.
+  * In some arch (armel) the mm_flags function doesn't exist, so do a patch
+    to not use this function when we build for armel.
+
+ -- Christian Marillat <marillat@debian.org>  Sun, 10 May 2009 22:05:57 +0200
+
+handbrake (0.9.3-0.2) unstable; urgency=low
+
+  * Build against the latest libdvdread-dev.
+  * New patch 03_libdvdread4 to fix build with libdvdread4.
+
+ -- Christian Marillat <marillat@debian.org>  Sat, 07 Mar 2009 12:38:03 +0100
+
+handbrake (0.9.3-0.1) unstable; urgency=low
+
+  * Don't Build-Depends on libgtk2.0-dev, libgtkhtml3.14-dev already depends
+    on that package.
+  * Add call for dh_icons and dh_desktop for handbrake-gtk package.
+  * Add a symlink handbrake-gtk -> ghb
+
+ -- Christian Marillat <marillat@debian.org>  Thu, 15 Jan 2009 16:01:39 +0100
+
+handbrake (0.9.3-0.0) unstable; urgency=low
+
+  * Initial release.
+  * Added copyright from Ubuntu.
+
+ -- Christian Marillat <marillat@debian.org>  Sat, 13 Dec 2008 18:00:44 +0100

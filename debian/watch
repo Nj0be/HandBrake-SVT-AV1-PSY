@@ -1,0 +1,4 @@
+version=4
+opts="dversionmangle=s/(\+svn\d+)?\+ds\d+$//,filenamemangle=s/(?:.*?)?HandBrake-(\d[\d.]*)-source\.tar\.bz2/handbrake-$1.tar.bz2/,repacksuffix=+ds1" \
+https://github.com/HandBrake/HandBrake/releases \
+  (?:.*?/)?HandBrake-([\d][\d\.]+)-source\.tar\.bz2

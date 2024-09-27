@@ -1,0 +1,11 @@
+Because of licensing and copyright concerns, the following
+subdirectories and the containing files have been removed from the
+upstream tarball. They need to get pruned on each new upstream release
+and are not necessary for compilation or operation under Linux.
+
+ contrib/
+ download/
+ macosx/
+ win/
+
+ -- Reinhard Tartler <siretart@tauware.de>, Sun, 30 Sep 2012 18:48:17 +0200

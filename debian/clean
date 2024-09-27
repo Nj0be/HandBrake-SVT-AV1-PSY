@@ -1,0 +1,14 @@
+gtk/Makefile.in
+gtk/aclocal.m4
+gtk/compile
+gtk/config.guess
+gtk/config.h.in
+gtk/config.sub
+gtk/configure
+gtk/depcomp
+gtk/install-sh
+gtk/ltmain.sh
+gtk/missing
+gtk/mkinstalldirs
+gtk/po/Makefile.in.in
+gtk/src/Makefile.in

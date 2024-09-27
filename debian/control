@@ -1,0 +1,84 @@
+Source: handbrake
+Section: graphics
+Priority: optional
+Maintainer: Debian Multimedia Maintainers <debian-multimedia@lists.debian.org>
+Uploaders:
+ Reinhard Tartler <siretart@tauware.de>,
+ Sebastian Ramacher <sramacher@debian.org>
+Homepage: https://handbrake.fr/
+Vcs-Git: https://salsa.debian.org/multimedia-team/handbrake.git
+Vcs-Browser: https://salsa.debian.org/multimedia-team/handbrake
+Standards-Version: 4.7.0
+Build-Depends:
+ automake,
+ cmake,
+ debhelper-compat (= 13),
+ dh-sequence-scour,
+ intltool,
+ libass-dev,
+ libavcodec-dev (>= 7:7.0),
+ libavfilter-dev (>= 7:7.0),
+ libavformat-dev (>= 7:7.0),
+ libavutil-dev (>= 7:7.0),
+ libbluray-dev,
+ libbz2-dev,
+ libdrm-dev [amd64],
+ libdvdnav-dev,
+ libdvdread-dev,
+ libffmpeg-nvenc-dev [amd64 arm64 i386],
+ libfontconfig-dev,
+ libfreetype-dev,
+ libgtk-4-dev,
+ libgudev-1.0-dev [linux-any],
+ libjansson-dev,
+ liblzma-dev,
+ libmp3lame-dev,
+ libmpeg2-4-dev,
+ libogg-dev,
+ libopus-dev,
+ libspeex-dev,
+ libsvtav1enc-dev,
+ libswresample-dev,
+ libswscale-dev,
+ libtheora-dev,
+ libturbojpeg0-dev,
+ libva-dev [amd64],
+ libvorbis-dev,
+ libvpl-dev [amd64],
+ libvpx-dev,
+ libx264-dev,
+ libx265-dev,
+ libxml2-dev,
+ meson,
+ nasm,
+ ninja-build,
+ python3,
+ pkgconf,
+ yasm
+Rules-Requires-Root: no
+
+Package: handbrake
+Architecture: any
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends}
+Description: versatile DVD ripper and video transcoder (GTK+ GUI)
+ HandBrake is a versatile, easy-to-use tool for converting DVDs and other
+ videos into H.264, XViD, or Ogg formatted media. It's particularly useful
+ for making videos that are compatible with portable video devices such as
+ the Apple iPod/iPhone or Sony PSP.
+ .
+ This package contains the graphical variant, ghb.
+
+Package: handbrake-cli
+Architecture: any
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends}
+Description: versatile DVD ripper and video transcoder (command line)
+ HandBrake is a versatile, easy-to-use tool for converting DVDs and other
+ videos into H.264, XViD, or Ogg formatted media.  It's particularly useful
+ for making videos that are compatible with portable video devices such as
+ the Apple iPod/iPhone or Sony PSP.
+ .
+ This package contains the command-line variant, HandBrakeCLI.

@@ -1,0 +1,4 @@
+usr/bin/ghb	usr/bin/handbrake
+usr/bin/ghb	usr/bin/handbrake-gtk
+usr/share/man/man1/handbrake.1	usr/share/man/man1/ghb.1
+usr/share/man/man1/handbrake.1	usr/share/man/man1/handbrake-gtk.1

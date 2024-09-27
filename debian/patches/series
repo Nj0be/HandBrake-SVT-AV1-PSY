@@ -1,0 +1,4 @@
+0001-Remove-embedded-downloaded-copies-of-various-librari.patch
+0002-Do-not-abort-if-libtool-meson-or-ninja-build-are-mis.patch
+0003-Remove-ambient-viewing-support.patch
+0004-Do-not-use-contribs.patch
