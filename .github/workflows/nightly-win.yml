@@ -9,28 +9,27 @@ on:
 jobs:
   build_mingw_arm:
     name: CLI / LibHB (ARM)
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@v4
 
     - name: Setup Environment
       run: |
         sudo apt-get purge cmake -y
-        sudo apt-get install automake autoconf build-essential intltool libtool libtool-bin make nasm patch tar yasm zlib1g-dev ninja-build gzip pax cmake
-        sudo pip3 install meson
+        sudo apt-get install automake autoconf build-essential intltool libtool libtool-bin make nasm patch tar yasm zlib1g-dev ninja-build gzip pax cmake python3-mesonpy
         
     - name: Setup Toolchain
       run: |
-        wget https://github.com/HandBrake/HandBrake-toolchains/releases/download/1.0/llvm-mingw-20231128-msvcrt-ubuntu-20.04-x86_64.tar.xz
-        SHA=$(sha1sum llvm-mingw-20231128-msvcrt-ubuntu-20.04-x86_64.tar.xz)
-        EXPECTED="fd5a33e18e460406f900c8e74ed6580eba3fb668  llvm-mingw-20231128-msvcrt-ubuntu-20.04-x86_64.tar.xz"
+        wget https://github.com/mstorsjo/llvm-mingw/releases/download/20240917/llvm-mingw-20240917-msvcrt-ubuntu-20.04-x86_64.tar.xz
+        SHA=$(sha1sum llvm-mingw-20240917-msvcrt-ubuntu-20.04-x86_64.tar.xz)
+        EXPECTED="376abe9b34b5df9daab4769b3fa387999e452751  llvm-mingw-20240917-msvcrt-ubuntu-20.04-x86_64.tar.xz"
         if [ "$SHA" == "$EXPECTED" ];
         then
             echo "Toolchain Verified. Extracting ..."
             mkdir toolchains
-            mv llvm-mingw-20231128-msvcrt-ubuntu-20.04-x86_64.tar.xz toolchains
+            mv llvm-mingw-20240917-msvcrt-ubuntu-20.04-x86_64.tar.xz toolchains
             cd toolchains
-            tar xvf llvm-mingw-20231128-msvcrt-ubuntu-20.04-x86_64.tar.xz
+            tar xvf llvm-mingw-20240917-msvcrt-ubuntu-20.04-x86_64.tar.xz
         else
             echo "Toolchain Verification FAILED. Exiting!"
             return -1
@@ -39,7 +38,7 @@ jobs:
     - name: Build CLI and LibHB
       run: |
         CWDIR=$(pwd)
-        export PATH="$CWDIR/toolchains/llvm-mingw-20231128-msvcrt-ubuntu-20.04-x86_64/bin:${PATH}"
+        export PATH="$CWDIR/toolchains/llvm-mingw-20240917-msvcrt-ubuntu-20.04-x86_64/bin:${PATH}"
         export PATH=/usr/bin:$PATH
         git clone https://github.com/HandBrake/HandBrake.git
         ./patch.sh
@@ -133,7 +132,7 @@ jobs:
         
   build_mingw_x64:
     name: CLI / LibHB
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@v4
 
@@ -150,24 +149,21 @@ jobs:
     - name: Setup Environment
       run: |
         sudo apt-get purge cmake -y
-        sudo apt-get install automake autoconf build-essential intltool libtool libtool-bin make nasm patch tar yasm zlib1g-dev ninja-build gzip pax cmake
-        sudo pip3 install meson
+        sudo apt-get install automake autoconf build-essential intltool libtool libtool-bin make nasm patch tar yasm zlib1g-dev ninja-build gzip pax cmake python3-mesonpy
         rustup target add x86_64-pc-windows-gnu
 
     - name: Setup Toolchain
       run: |
-        wget https://github.com/bradleysepos/mingw-w64-build/releases/download/10.0.0/mingw-w64-toolchain-10.0.0-msvcrt-linux-x86_64.tar.gz
-        SHA=$(sha1sum mingw-w64-toolchain-10.0.0-msvcrt-linux-x86_64.tar.gz)
-        EXPECTED="f7250d140a72bdfdda2d4cd01d84e9a3938132b1  mingw-w64-toolchain-10.0.0-msvcrt-linux-x86_64.tar.gz"
+        wget https://github.com/mstorsjo/llvm-mingw/releases/download/20240917/llvm-mingw-20240917-msvcrt-ubuntu-20.04-x86_64.tar.xz
+        SHA=$(sha1sum llvm-mingw-20240917-msvcrt-ubuntu-20.04-x86_64.tar.xz)
+        EXPECTED="376abe9b34b5df9daab4769b3fa387999e452751  llvm-mingw-20240917-msvcrt-ubuntu-20.04-x86_64.tar.xz"
         if [ "$SHA" == "$EXPECTED" ];
         then
             echo "Toolchain Verified. Extracting ..."
             mkdir toolchains
-            mv mingw-w64-toolchain-10.0.0-msvcrt-linux-x86_64.tar.gz toolchains
+            mv llvm-mingw-20240917-msvcrt-ubuntu-20.04-x86_64.tar.xz toolchains
             cd toolchains
-            tar xvf mingw-w64-toolchain-10.0.0-msvcrt-linux-x86_64.tar.gz
-            cd mingw-w64-toolchain-10.0.0-msvcrt-linux-x86_64/mingw-w64-x86_64/
-            pwd
+            tar xvf llvm-mingw-20240917-msvcrt-ubuntu-20.04-x86_64.tar.xz
         else
             echo "Toolchain Verification FAILED. Exiting!"
             return -1
@@ -181,7 +177,7 @@ jobs:
     - name: Build CLI and LibHB
       run: |
         CWDIR=$(pwd)
-        export PATH="$CWDIR/toolchains/mingw-w64-toolchain-10.0.0-msvcrt-linux-x86_64/mingw-w64-x86_64/bin:${PATH}"
+        export PATH="$CWDIR/toolchains/llvm-mingw-20240917-msvcrt-ubuntu-20.04-x86_64/bin:${PATH}"
         export PATH=/usr/bin:$PATH
         git clone https://github.com/HandBrake/HandBrake.git
         ./patch.sh
