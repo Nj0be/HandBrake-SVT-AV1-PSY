@@ -48,7 +48,7 @@ jobs:
     - name: Build HandBrake Linux
       run: |
         cd HandBrake
-        ./configure --enable-qsv --enable-vce --enable-nvenc --enable-nvdec --launch-jobs=0 --launch
+        ./configure --lto=on --enable-qsv --enable-vce --enable-nvenc --enable-nvdec --launch-jobs=0 --launch
         mv build/HandBrakeCLI ../HandBrakeCLI-$(date +'%Y%m%d')-master-x86_64
         mv build/gtk/src/ghb ../ghb-$(date +'%Y%m%d')-master-x86_64
 

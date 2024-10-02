@@ -19,7 +19,7 @@ source=("HandBrake::git+https://github.com/HandBrake/HandBrake.git" "HandBrake-S
 _commondeps=(libxml2 libass libvorbis opus speex libtheora lame libjpeg-turbo
              x264 libx264.so jansson libvpx libva numactl)
 _guideps=(gst-plugins-base gtk4 libgudev)
-makedepends=(git intltool python nasm wget cmake meson llvm clang cargo-c
+makedepends=(git intltool python nasm wget cmake meson cargo-c base-devel
              "${_commondeps[@]}" "${_guideps[@]}")
 optdepends=('libdvdcss: for decoding encrypted DVDs'
             'intel-media-sdk: for enabling Intel QSV'
@@ -34,15 +34,16 @@ pkgver() {
   git describe --long | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
- build() {
+build() {
   ./HandBrake-SVT-AV1-PSY/patch.sh
   cd "HandBrake"
 
   ./configure \
     --prefix=/usr \
+    --lto=on \
     --enable-qsv \
-	--launch-jobs=$(nproc) \
-  	--launch
+    --launch-jobs=0 \
+    --launch
     #--harden \
     #--enable-x265 \
     #--enable-libdovi \
@@ -76,4 +77,3 @@ package_handbrake-svt-av1-psy-cli-git() {
   cd "$srcdir/HandBrake/build"
   install -D HandBrakeCLI "$pkgdir/usr/bin/HandBrakeCLI"
 }
-
