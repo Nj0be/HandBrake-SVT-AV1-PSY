@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     name: Build on Ubuntu
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@v4
 
@@ -26,11 +26,14 @@ jobs:
     - name: Setup Environment
       run: |
         sudo apt-get update
-        sudo apt-get install autoconf automake build-essential libass-dev libbz2-dev libfontconfig1-dev libfreetype6-dev libfribidi-dev libharfbuzz-dev libjansson-dev liblzma-dev libmp3lame-dev libnuma-dev libturbojpeg0-dev libssl-dev
-        sudo apt-get install libogg-dev libopus-dev libsamplerate-dev libspeex-dev libtheora-dev libtool libtool-bin libvorbis-dev libx264-dev libxml2-dev libvpx-dev make nasm ninja-build patch tar zlib1g-dev appstream
-        sudo pip3 install meson
-        sudo apt-get install gettext libglib2.0-dev libgtk-4-dev
-        sudo apt-get install libva-dev libdrm-dev llvm clang
+        sudo apt-get install \
+            autoconf automake build-essential libass-dev libbz2-dev libfontconfig1-dev \
+            libfreetype6-dev libfribidi-dev libharfbuzz-dev libjansson-dev liblzma-dev \
+            libmp3lame-dev libnuma-dev libturbojpeg0-dev libssl-dev libogg-dev libopus-dev \
+            libsamplerate-dev libspeex-dev libtheora-dev libtool libtool-bin libvorbis-dev \
+            libx264-dev libxml2-dev libvpx-dev make nasm ninja-build patch tar zlib1g-dev \
+            appstream gettext libglib2.0-dev libgtk-4-dev python3-mesonpy libva-dev \
+            libdrm-dev
 
     - name: Setup Cargo-C Toolchain
       if: steps.linux-cargo-c-toolchain.outputs.cache-hit != 'true'
@@ -44,10 +47,10 @@ jobs:
 
     - name: Build HandBrake Linux
       run: |
-         cd HandBrake
-         ./configure --enable-qsv --enable-vce --enable-nvenc --enable-nvdec --launch-jobs=0 --launch
-         mv build/HandBrakeCLI ../HandBrakeCLI-$(date +'%Y%m%d')-master-x86_64
-         mv build/gtk/src/ghb ../ghb-$(date +'%Y%m%d')-master-x86_64
+        cd HandBrake
+        ./configure --lto=on --enable-qsv --enable-vce --enable-nvenc --enable-nvdec --launch-jobs=0 --launch
+        mv build/HandBrakeCLI ../HandBrakeCLI-$(date +'%Y%m%d')-master-x86_64
+        mv build/gtk/src/ghb ../ghb-$(date +'%Y%m%d')-master-x86_64
 
     - name: Upload HandBrake CLI
       uses: actions/upload-artifact@v4
