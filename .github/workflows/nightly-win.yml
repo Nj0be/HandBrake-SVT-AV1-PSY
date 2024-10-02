@@ -5,7 +5,12 @@ on:
   schedule:
     - cron:  '30 7 * * 1,5'
   workflow_dispatch: 
-  
+
+env:
+  TOOLCHAIN_VERSION: "20241001"
+  TOOLCHAIN_SHA: "65450e9a10ece0b6c6fae37092982accde3774be"
+  TOOLCHAIN_FILE: "llvm-mingw-20241001-msvcrt-ubuntu-20.04-x86_64.tar.xz"
+
 jobs:
   build_mingw_arm:
     name: CLI / LibHB (ARM)
@@ -20,25 +25,24 @@ jobs:
         
     - name: Setup Toolchain
       run: |
-        wget https://github.com/mstorsjo/llvm-mingw/releases/download/20240917/llvm-mingw-20240917-msvcrt-ubuntu-20.04-x86_64.tar.xz
-        SHA=$(sha1sum llvm-mingw-20240917-msvcrt-ubuntu-20.04-x86_64.tar.xz)
-        EXPECTED="376abe9b34b5df9daab4769b3fa387999e452751  llvm-mingw-20240917-msvcrt-ubuntu-20.04-x86_64.tar.xz"
-        if [ "$SHA" == "$EXPECTED" ];
-        then
+        wget https://github.com/mstorsjo/llvm-mingw/releases/download/${{ env.TOOLCHAIN_VERSION }}/${{ env.TOOLCHAIN_FILE }}
+        SHA=$(sha1sum ${{ env.TOOLCHAIN_FILE }})
+        EXPECTED="${{ env.TOOLCHAIN_SHA }}  ${{ env.TOOLCHAIN_FILE }}"
+        if [ "$SHA" == "$EXPECTED" ]; then
             echo "Toolchain Verified. Extracting ..."
             mkdir toolchains
-            mv llvm-mingw-20240917-msvcrt-ubuntu-20.04-x86_64.tar.xz toolchains
+            mv ${{ env.TOOLCHAIN_FILE }} toolchains
             cd toolchains
-            tar xvf llvm-mingw-20240917-msvcrt-ubuntu-20.04-x86_64.tar.xz
+            tar xvf ${{ env.TOOLCHAIN_FILE }}
         else
             echo "Toolchain Verification FAILED. Exiting!"
-            return -1
+            exit 1
         fi
-        
+
     - name: Build CLI and LibHB
       run: |
         CWDIR=$(pwd)
-        export PATH="$CWDIR/toolchains/llvm-mingw-20240917-msvcrt-ubuntu-20.04-x86_64/bin:${PATH}"
+        export PATH="$CWDIR/toolchains/llvm-mingw-${{ env.TOOLCHAIN_VERSION }}-msvcrt-ubuntu-20.04-x86_64/bin:${PATH}"
         export PATH=/usr/bin:$PATH
         git clone https://github.com/HandBrake/HandBrake.git
         ./patch.sh
@@ -154,19 +158,18 @@ jobs:
 
     - name: Setup Toolchain
       run: |
-        wget https://github.com/mstorsjo/llvm-mingw/releases/download/20240917/llvm-mingw-20240917-msvcrt-ubuntu-20.04-x86_64.tar.xz
-        SHA=$(sha1sum llvm-mingw-20240917-msvcrt-ubuntu-20.04-x86_64.tar.xz)
-        EXPECTED="376abe9b34b5df9daab4769b3fa387999e452751  llvm-mingw-20240917-msvcrt-ubuntu-20.04-x86_64.tar.xz"
-        if [ "$SHA" == "$EXPECTED" ];
-        then
+        wget https://github.com/mstorsjo/llvm-mingw/releases/download/${{ env.TOOLCHAIN_VERSION }}/${{ env.TOOLCHAIN_FILE }}
+        SHA=$(sha1sum ${{ env.TOOLCHAIN_FILE }})
+        EXPECTED="${{ env.TOOLCHAIN_SHA }}  ${{ env.TOOLCHAIN_FILE }}"
+        if [ "$SHA" == "$EXPECTED" ]; then
             echo "Toolchain Verified. Extracting ..."
             mkdir toolchains
-            mv llvm-mingw-20240917-msvcrt-ubuntu-20.04-x86_64.tar.xz toolchains
+            mv ${{ env.TOOLCHAIN_FILE }} toolchains
             cd toolchains
-            tar xvf llvm-mingw-20240917-msvcrt-ubuntu-20.04-x86_64.tar.xz
+            tar xvf ${{ env.TOOLCHAIN_FILE }}
         else
             echo "Toolchain Verification FAILED. Exiting!"
-            return -1
+            exit 1
         fi
 
     - name: Setup Cargo-C Toolchain
@@ -177,7 +180,7 @@ jobs:
     - name: Build CLI and LibHB
       run: |
         CWDIR=$(pwd)
-        export PATH="$CWDIR/toolchains/llvm-mingw-20240917-msvcrt-ubuntu-20.04-x86_64/bin:${PATH}"
+        export PATH="$CWDIR/toolchains/llvm-mingw-${{ env.TOOLCHAIN_VERSION }}-msvcrt-ubuntu-20.04-x86_64/bin:${PATH}"
         export PATH=/usr/bin:$PATH
         git clone https://github.com/HandBrake/HandBrake.git
         ./patch.sh
