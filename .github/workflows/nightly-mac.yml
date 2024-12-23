@@ -11,12 +11,12 @@ jobs:
     name: Build on macOS
     runs-on: macos-15
     env:
-      DEVELOPER_DIR: /Applications/Xcode_16.app/Contents/Developer
+      DEVELOPER_DIR: /Applications/Xcode_16.2.app/Contents/Developer
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-python@v5
       with:
-        python-version: '3.12.3'
+        python-version: '3.13.1'
 
     - name: Toolchain Cache
       id: mac-toolchain
