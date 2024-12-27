@@ -49,7 +49,7 @@ fi
 
 
 for filename in $BASEDIR/patches/*.patch; do
-    patch -t -N -p1 -d $src_dir < "$filename"  || exit 1
+    patch -t -N -p1 --binary -d $src_dir < "$filename" || exit 1
 done
 
 # The flatpak build refers to the latest commit, so we add a commit that includes the patches

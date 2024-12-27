@@ -1,0 +1,20 @@
+diff --git a/win/CS/HandBrakeWPF/Constants.cs b/win/CS/HandBrakeWPF/Constants.cs
+index bb0d6f7ba..ed2fdba0d 100644
+--- a/win/CS/HandBrakeWPF/Constants.cs
++++ b/win/CS/HandBrakeWPF/Constants.cs
+@@ -15,11 +15,11 @@ namespace HandBrakeWPF
+     public class Constants
+     {
+         /* Appcast URLs */
+-        public const string Appcast64 = "https://handbrake.fr/appcast.x86_64.xml";
+-        public const string AppcastUnstable64 = "https://handbrake.fr/appcast_unstable.x86_64.xml";
++        public const string Appcast64 = "https://github.com/Nj0be/HandBrake-SVT-AV1-PSY/releases/download/win/appcast_unstable.x86_64.xml";
++        public const string AppcastUnstable64 = "https://github.com/Nj0be/HandBrake-SVT-AV1-PSY/releases/download/win/appcast_unstable.x86_64.xml";
+ 
+-        public const string Appcast64Arm = "https://handbrake.fr/appcast.arm64.xml";
+-        public const string AppcastUnstable64Arm = "https://handbrake.fr/appcast_unstable.arm64.xml";
++        public const string Appcast64Arm = "https://github.com/Nj0be/HandBrake-SVT-AV1-PSY/releases/download/win/appcast_unstable.arm64.xml";
++        public const string AppcastUnstable64Arm = "https://github.com/Nj0be/HandBrake-SVT-AV1-PSY/releases/download/win/appcast_unstable.arm64.xml";
+ 
+         /* Languages */
+         public const string Any = "(Any)";

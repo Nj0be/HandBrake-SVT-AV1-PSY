@@ -327,7 +327,36 @@ jobs:
           sed -e 's/^/| /'  -i sha256.txt
           sed -e 's/$/ |/' -i sha256.txt
           cat sha256.txt >> win_rel_body.md
+
+      # Generate Appcast
+      - name: Generate Appcast
+        run: |
+          sudo apt-get install xmlstarlet
+          cd win
+          x86_64_name=$(find * -name "*x86_64-Win_GUI.exe")
+          arm64_name=$(find * -name "*arm64-Win_GUI.exe")
+          x86_64_sha=$(sha256sum $x86_64_name | awk '{print $1;}')
+          arm64_sha=$(sha256sum $arm64_name | awk '{print $1;}')
+          # 01 = Unofficial Builds.  00 = Official Tagged Releases.
+          x86_64_version="$(cut -d'-' -f2 <<< "$x86_64_name")01"
+          arm64_version="$(cut -d'-' -f2 <<< "$arm64_name")01"
+          wget "https://handbrake.fr/appcast_unstable.x86_64.xml"
+          xmlstarlet ed --inplace -u "/rss/channel/item/windows" -v "https://github.com/Nj0be/HandBrake-SVT-AV1-PSY/releases/download/win/$x86_64_name" -u "/rss/channel/item/windowsHash" -v "$x86_64_sha" -u "/rss/channel/item/enclosure/@sparkle:version" -v "$x86_64_version" appcast_unstable.x86_64.xml
+          wget "https://handbrake.fr/appcast_unstable.arm64.xml"
+          xmlstarlet ed --inplace -u "/rss/channel/item/windows" -v "https://github.com/Nj0be/HandBrake-SVT-AV1-PSY/releases/download/win/$arm64_name" -u "/rss/channel/item/windowsHash" -v "$arm64_sha" -u "/rss/channel/item/enclosure/@sparkle:version" -v "$arm64_version" appcast_unstable.arm64.xml
+
+      - name: upload appcast x86_64
+        uses: actions/upload-artifact@v4
+        with:
+          name: appcast_unstable.x86_64.xml
+          path: win/appcast_unstable.x86_64.xml
       
+      - name: upload appcast arm64
+        uses: actions/upload-artifact@v4
+        with:
+          name: appcast_unstable.arm64.xml
+          path: win/appcast_unstable.arm64.xml
+
       # Publishing the Release
       - name: Remove the old Release
         uses: dev-drprasad/delete-older-releases@v0.3.4
