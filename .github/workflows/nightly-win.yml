@@ -7,9 +7,9 @@ on:
   workflow_dispatch: 
 
 env:
-  TOOLCHAIN_VERSION: "20241001"
-  TOOLCHAIN_SHA: "65450e9a10ece0b6c6fae37092982accde3774be"
-  TOOLCHAIN_FILE: "llvm-mingw-20241001-msvcrt-ubuntu-20.04-x86_64.tar.xz"
+  TOOLCHAIN_VERSION: "20241217"
+  TOOLCHAIN_SHA: "60fb5b469adb58592d67fa3b689727081e40712a"
+  TOOLCHAIN_FILE: "llvm-mingw-20241217-msvcrt-ubuntu-20.04-x86_64.tar.xz"
 
 jobs:
   build_mingw_arm:
@@ -20,7 +20,8 @@ jobs:
 
     - name: Setup Environment
       run: |
-        sudo apt-get purge cmake -y
+        sudo apt-get update
+        sudo apt-get upgrade
         sudo apt-get install automake autoconf build-essential intltool libtool libtool-bin make nasm patch tar yasm zlib1g-dev ninja-build gzip pax cmake python3-mesonpy
         
     - name: Setup Toolchain
@@ -28,6 +29,8 @@ jobs:
         wget https://github.com/mstorsjo/llvm-mingw/releases/download/${{ env.TOOLCHAIN_VERSION }}/${{ env.TOOLCHAIN_FILE }}
         SHA=$(sha1sum ${{ env.TOOLCHAIN_FILE }})
         EXPECTED="${{ env.TOOLCHAIN_SHA }}  ${{ env.TOOLCHAIN_FILE }}"
+        echo "Calculated SHA: $SHA"
+        echo "Expected SHA:  $EXPECTED"
         if [ "$SHA" == "$EXPECTED" ]; then
             echo "Toolchain Verified. Extracting ..."
             mkdir toolchains
@@ -152,7 +155,8 @@ jobs:
 
     - name: Setup Environment
       run: |
-        sudo apt-get purge cmake -y
+        sudo apt-get update
+        sudo apt-get upgrade
         sudo apt-get install automake autoconf build-essential intltool libtool libtool-bin make nasm patch tar yasm zlib1g-dev ninja-build gzip pax cmake python3-mesonpy
         rustup target add x86_64-pc-windows-gnu
 
@@ -161,6 +165,8 @@ jobs:
         wget https://github.com/mstorsjo/llvm-mingw/releases/download/${{ env.TOOLCHAIN_VERSION }}/${{ env.TOOLCHAIN_FILE }}
         SHA=$(sha1sum ${{ env.TOOLCHAIN_FILE }})
         EXPECTED="${{ env.TOOLCHAIN_SHA }}  ${{ env.TOOLCHAIN_FILE }}"
+        echo "Calculated SHA: $SHA"
+        echo "Expected SHA:  $EXPECTED"
         if [ "$SHA" == "$EXPECTED" ]; then
             echo "Toolchain Verified. Extracting ..."
             mkdir toolchains

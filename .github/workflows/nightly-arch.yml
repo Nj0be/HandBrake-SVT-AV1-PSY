@@ -30,7 +30,7 @@ jobs:
 
     - name: Build HandBrake Arch Linux
       id: makepkg
-      uses: edlanglois/pkgbuild-action@v1
+      uses: edlanglois/pkgbuild-action@v1.1.9
 
     - name: Upload HandBrake-SVT-AV1-PSY Archive
       uses: actions/upload-artifact@v4
