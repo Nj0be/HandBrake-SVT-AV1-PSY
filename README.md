@@ -1,4 +1,4 @@
-# HandBrake-SVT-AV1-SPY
+# HandBrake-SVT-AV1-PSY
 ### Purpose of the project
 This project contains the patches needed to replace SVT-AV1 with SVT-AV1-PSY inside HandBrake.\
 In addition, using GitHub Actions, nightly build of patched executables will be released.
