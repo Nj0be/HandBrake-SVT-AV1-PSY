@@ -3,8 +3,8 @@ name: Windows Build
 on:
   pull_request:
   schedule:
-    - cron:  '30 7 * * 1,5'
-  workflow_dispatch: 
+    - cron: '30 7 * * 1,5'
+  workflow_dispatch:
 
 env:
   TOOLCHAIN_VERSION: "20241217"
@@ -21,7 +21,6 @@ jobs:
     - name: Setup Environment
       run: |
         sudo apt-get update
-        sudo apt-get upgrade
         sudo apt-get install automake autoconf build-essential intltool libtool libtool-bin make nasm patch tar yasm zlib1g-dev ninja-build gzip pax cmake python3-mesonpy
         
     - name: Setup Toolchain
@@ -156,7 +155,6 @@ jobs:
     - name: Setup Environment
       run: |
         sudo apt-get update
-        sudo apt-get upgrade
         sudo apt-get install automake autoconf build-essential intltool libtool libtool-bin make nasm patch tar yasm zlib1g-dev ninja-build gzip pax cmake python3-mesonpy
         rustup target add x86_64-pc-windows-gnu
 
@@ -333,7 +331,7 @@ jobs:
           sed -e 's/^/| /'  -i sha256.txt
           sed -e 's/$/ |/' -i sha256.txt
           cat sha256.txt >> win_rel_body.md
-      
+
       # Publishing the Release
       - name: Remove the old Release
         uses: dev-drprasad/delete-older-releases@v0.3.4
@@ -342,7 +340,7 @@ jobs:
           delete_tag_pattern: "win"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
+
       - uses: ncipollo/release-action@v1
         with:
           artifacts: "win/*.*"
