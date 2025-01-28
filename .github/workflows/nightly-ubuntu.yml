@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     name: Build on Ubuntu
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
 
@@ -26,7 +26,6 @@ jobs:
     - name: Setup Environment
       run: |
         sudo apt-get update
-        sudo apt-get upgrade
         sudo apt-get install \
             autoconf automake build-essential libass-dev libbz2-dev libfontconfig1-dev \
             libfreetype6-dev libfribidi-dev libharfbuzz-dev libjansson-dev liblzma-dev \
