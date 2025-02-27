@@ -1,0 +1,16 @@
+diff --git a/contrib/svt-av1/A02-memory-leak-fix.patch b/contrib/svt-av1/A02-memory-leak-fix.patch
+deleted file mode 100644
+index 2615b1e75..000000000
+--- a/contrib/svt-av1/A02-memory-leak-fix.patch
++++ /dev/null
+@@ -1,10 +0,0 @@
+-diff --git a/Source/Lib/Codec/global_me.c b/Source/Lib/Codec/global_me.c
+-index f6adbf59..53002238 100644
+---- a/Source/Lib/Codec/global_me.c
+-+++ b/Source/Lib/Codec/global_me.c
+-@@ -454,4 +454,5 @@ void compute_global_motion(PictureParentControlSet *pcs, int *frm_corners, int n
+-     *best_wm = global_motion;
+- 
+-     for (int m = 0; m < RANSAC_NUM_MOTIONS; m++) { free(params_by_motion[m].inliers); }
+-+    free(correspondences);
+- }
