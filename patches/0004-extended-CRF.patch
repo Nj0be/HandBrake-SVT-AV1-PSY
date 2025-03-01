@@ -4,7 +4,7 @@ diff --git a/libhb/common.c b/libhb/common.c
 index dfd41edac..4cb7ef21e 100644
 --- a/libhb/common.c
 +++ b/libhb/common.c
-@@ -1525,14 +1525,20 @@ void hb_video_quality_get_limits(uint32_t codec, float *low, float *high,
+@@ -1547,14 +1547,20 @@ void hb_video_quality_get_limits(uint32_t codec, float *low, float *high,
          case HB_VCODEC_FFMPEG_VP8:
          case HB_VCODEC_FFMPEG_VP9:
          case HB_VCODEC_FFMPEG_VP9_10BIT:
