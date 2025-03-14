@@ -70,7 +70,7 @@ index 0d400e08d..d72bab977 100644
 +$(eval $(call import.MODULE.defs,SVT-AV1,svt-av1))
  $(eval $(call import.CONTRIB.defs,SVT-AV1))
  
- SVT-AV1.FETCH.url     = https://github.com/HandBrake/HandBrake-contribs/releases/download/contribs2/SVT-AV1-v3.0.0.tar.gz
+ SVT-AV1.FETCH.url     = https://github.com/HandBrake/HandBrake-contribs/releases/download/contribs2/SVT-AV1-v3.0.1.tar.gz
 diff --git a/gtk/meson.build b/gtk/meson.build
 index 350a97c4b..83233cea2 100644
 --- a/gtk/meson.build
