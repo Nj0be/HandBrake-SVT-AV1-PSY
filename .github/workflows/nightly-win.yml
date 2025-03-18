@@ -1,50 +1,45 @@
 name: Windows Build
 
 on:
-  pull_request:
   schedule:
-    - cron: '30 7 * * 1,5'
-  workflow_dispatch:
-
-env:
-  TOOLCHAIN_VERSION: "20250114"
-  TOOLCHAIN_SHA: "7db6b9c2944b0f0cc2f71e2a415873709e027f9b"
-  TOOLCHAIN_FILE: "llvm-mingw-20250114-msvcrt-ubuntu-20.04-x86_64.tar.xz"
-
+    - cron:  '30 7 * * 1,5'
+  
+  workflow_dispatch: 
+  
 jobs:
   build_mingw_arm:
     name: CLI / LibHB (ARM)
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v4
 
     - name: Setup Environment
       run: |
-        sudo apt-get update
-        sudo apt-get install automake autoconf build-essential intltool libtool libtool-bin make nasm patch tar yasm zlib1g-dev ninja-build gzip pax cmake python3-mesonpy
+        sudo apt-get purge cmake -y
+        sudo apt-get install automake autoconf build-essential intltool libtool libtool-bin make nasm patch tar yasm zlib1g-dev ninja-build gzip pax cmake
+        sudo pip3 install meson
         
     - name: Setup Toolchain
       run: |
-        wget https://github.com/mstorsjo/llvm-mingw/releases/download/${{ env.TOOLCHAIN_VERSION }}/${{ env.TOOLCHAIN_FILE }}
-        SHA=$(sha1sum ${{ env.TOOLCHAIN_FILE }})
-        EXPECTED="${{ env.TOOLCHAIN_SHA }}  ${{ env.TOOLCHAIN_FILE }}"
-        echo "Calculated SHA: $SHA"
-        echo "Expected SHA:  $EXPECTED"
-        if [ "$SHA" == "$EXPECTED" ]; then
+        wget https://github.com/HandBrake/HandBrake-toolchains/releases/download/1.0/llvm-mingw-20231128-msvcrt-ubuntu-20.04-x86_64.tar.xz
+        SHA=$(sha1sum llvm-mingw-20231128-msvcrt-ubuntu-20.04-x86_64.tar.xz)
+        EXPECTED="fd5a33e18e460406f900c8e74ed6580eba3fb668  llvm-mingw-20231128-msvcrt-ubuntu-20.04-x86_64.tar.xz"
+        if [ "$SHA" == "$EXPECTED" ];
+        then
             echo "Toolchain Verified. Extracting ..."
             mkdir toolchains
-            mv ${{ env.TOOLCHAIN_FILE }} toolchains
+            mv llvm-mingw-20231128-msvcrt-ubuntu-20.04-x86_64.tar.xz toolchains
             cd toolchains
-            tar xvf ${{ env.TOOLCHAIN_FILE }}
+            tar xvf llvm-mingw-20231128-msvcrt-ubuntu-20.04-x86_64.tar.xz
         else
             echo "Toolchain Verification FAILED. Exiting!"
-            exit 1
+            return -1
         fi
-
+        
     - name: Build CLI and LibHB
       run: |
         CWDIR=$(pwd)
-        export PATH="$CWDIR/toolchains/llvm-mingw-${{ env.TOOLCHAIN_VERSION }}-msvcrt-ubuntu-20.04-x86_64/bin:${PATH}"
+        export PATH="$CWDIR/toolchains/llvm-mingw-20231128-msvcrt-ubuntu-20.04-x86_64/bin:${PATH}"
         export PATH=/usr/bin:$PATH
         git clone https://github.com/HandBrake/HandBrake.git
         ./patch.sh
@@ -138,7 +133,7 @@ jobs:
         
   build_mingw_x64:
     name: CLI / LibHB
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v4
 
@@ -154,26 +149,28 @@ jobs:
 
     - name: Setup Environment
       run: |
-        sudo apt-get update
-        sudo apt-get install automake autoconf build-essential intltool libtool libtool-bin make nasm patch tar yasm zlib1g-dev ninja-build gzip pax cmake python3-mesonpy
+        sudo apt-get purge cmake -y
+        sudo apt-get install automake autoconf build-essential intltool libtool libtool-bin make nasm patch tar yasm zlib1g-dev ninja-build gzip pax cmake
+        sudo pip3 install meson
         rustup target add x86_64-pc-windows-gnu
 
     - name: Setup Toolchain
       run: |
-        wget https://github.com/mstorsjo/llvm-mingw/releases/download/${{ env.TOOLCHAIN_VERSION }}/${{ env.TOOLCHAIN_FILE }}
-        SHA=$(sha1sum ${{ env.TOOLCHAIN_FILE }})
-        EXPECTED="${{ env.TOOLCHAIN_SHA }}  ${{ env.TOOLCHAIN_FILE }}"
-        echo "Calculated SHA: $SHA"
-        echo "Expected SHA:  $EXPECTED"
-        if [ "$SHA" == "$EXPECTED" ]; then
+        wget https://github.com/bradleysepos/mingw-w64-build/releases/download/10.0.0/mingw-w64-toolchain-10.0.0-msvcrt-linux-x86_64.tar.gz
+        SHA=$(sha1sum mingw-w64-toolchain-10.0.0-msvcrt-linux-x86_64.tar.gz)
+        EXPECTED="f7250d140a72bdfdda2d4cd01d84e9a3938132b1  mingw-w64-toolchain-10.0.0-msvcrt-linux-x86_64.tar.gz"
+        if [ "$SHA" == "$EXPECTED" ];
+        then
             echo "Toolchain Verified. Extracting ..."
             mkdir toolchains
-            mv ${{ env.TOOLCHAIN_FILE }} toolchains
+            mv mingw-w64-toolchain-10.0.0-msvcrt-linux-x86_64.tar.gz toolchains
             cd toolchains
-            tar xvf ${{ env.TOOLCHAIN_FILE }}
+            tar xvf mingw-w64-toolchain-10.0.0-msvcrt-linux-x86_64.tar.gz
+            cd mingw-w64-toolchain-10.0.0-msvcrt-linux-x86_64/mingw-w64-x86_64/
+            pwd
         else
             echo "Toolchain Verification FAILED. Exiting!"
-            exit 1
+            return -1
         fi
 
     - name: Setup Cargo-C Toolchain
@@ -184,7 +181,7 @@ jobs:
     - name: Build CLI and LibHB
       run: |
         CWDIR=$(pwd)
-        export PATH="$CWDIR/toolchains/llvm-mingw-${{ env.TOOLCHAIN_VERSION }}-msvcrt-ubuntu-20.04-x86_64/bin:${PATH}"
+        export PATH="$CWDIR/toolchains/mingw-w64-toolchain-10.0.0-msvcrt-linux-x86_64/mingw-w64-x86_64/bin:${PATH}"
         export PATH=/usr/bin:$PATH
         git clone https://github.com/HandBrake/HandBrake.git
         ./patch.sh
@@ -331,7 +328,7 @@ jobs:
           sed -e 's/^/| /'  -i sha256.txt
           sed -e 's/$/ |/' -i sha256.txt
           cat sha256.txt >> win_rel_body.md
-
+      
       # Publishing the Release
       - name: Remove the old Release
         uses: dev-drprasad/delete-older-releases@v0.3.4
@@ -340,7 +337,7 @@ jobs:
           delete_tag_pattern: "win"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+          
       - uses: ncipollo/release-action@v1
         with:
           artifacts: "win/*.*"
