@@ -1,5 +1,5 @@
 diff --git a/libhb/common.c b/libhb/common.c
-index 1c43c7a7f..e06ec780e 100644
+index 1c43c7a7f..9f2957d21 100644
 --- a/libhb/common.c
 +++ b/libhb/common.c
 @@ -283,8 +283,8 @@ hb_encoder_internal_t hb_video_encoders[]  =
@@ -8,8 +8,8 @@ index 1c43c7a7f..e06ec780e 100644
      // actual encoders
 -    { { "AV1 (SVT)",                   "svt_av1",          "AV1 (SVT)",                      HB_VCODEC_SVT_AV1,           HB_MUX_MASK_MP4|HB_MUX_MASK_WEBM|HB_MUX_MASK_MKV, }, NULL, 0, 1, HB_GID_VCODEC_AV1_SVT,    },
 -    { { "AV1 10-bit (SVT)",            "svt_av1_10bit",    "AV1 10-bit (SVT)",               HB_VCODEC_SVT_AV1_10BIT,     HB_MUX_MASK_MP4|HB_MUX_MASK_WEBM|HB_MUX_MASK_MKV, }, NULL, 0, 1, HB_GID_VCODEC_AV1_SVT,    },
-+    { { "AV1 (SVT PSY)",                   "svt_av1",          "AV1 (SVT)",                      HB_VCODEC_SVT_AV1,           HB_MUX_MASK_MP4|HB_MUX_MASK_WEBM|HB_MUX_MASK_MKV, }, NULL, 0, 1, HB_GID_VCODEC_AV1_SVT,    },
-+    { { "AV1 10-bit (SVT PSY)",            "svt_av1_10bit",    "AV1 10-bit (SVT)",               HB_VCODEC_SVT_AV1_10BIT,     HB_MUX_MASK_MP4|HB_MUX_MASK_WEBM|HB_MUX_MASK_MKV, }, NULL, 0, 1, HB_GID_VCODEC_AV1_SVT,    },
++    { { "AV1 (SVT PSY)",               "svt_av1",          "AV1 (SVT PSY)",                  HB_VCODEC_SVT_AV1,           HB_MUX_MASK_MP4|HB_MUX_MASK_WEBM|HB_MUX_MASK_MKV, }, NULL, 0, 1, HB_GID_VCODEC_AV1_SVT,    },
++    { { "AV1 10-bit (SVT PSY)",        "svt_av1_10bit",    "AV1 10-bit (SVT PSY)",           HB_VCODEC_SVT_AV1_10BIT,     HB_MUX_MASK_MP4|HB_MUX_MASK_WEBM|HB_MUX_MASK_MKV, }, NULL, 0, 1, HB_GID_VCODEC_AV1_SVT,    },
      { { "AV1 (Intel QSV)",             "qsv_av1",          "AV1 (Intel QSV)",                HB_VCODEC_FFMPEG_QSV_AV1,    HB_MUX_MASK_MP4|HB_MUX_MASK_WEBM|HB_MUX_MASK_MKV, }, NULL, 0, 1, HB_GID_VCODEC_AV1_QSV,    },
      { { "AV1 10-bit (Intel QSV)",      "qsv_av1_10bit",    "AV1 10-bit (Intel QSV)",         HB_VCODEC_FFMPEG_QSV_AV1_10BIT, HB_MUX_MASK_MP4|HB_MUX_MASK_WEBM|HB_MUX_MASK_MKV, }, NULL, 0, 1, HB_GID_VCODEC_AV1_QSV, },
      { { "AV1 (NVEnc)",                 "nvenc_av1",        "AV1 (NVEnc)",                    HB_VCODEC_FFMPEG_NVENC_AV1,  HB_MUX_MASK_MP4|HB_MUX_MASK_WEBM|HB_MUX_MASK_MKV, }, NULL, 0, 1, HB_GID_VCODEC_AV1_NVENC,  },
