@@ -7,9 +7,9 @@ on:
   workflow_dispatch:
 
 env:
-  TOOLCHAIN_VERSION: "20250402"
-  TOOLCHAIN_SHA: "1ce426443c48abe43236cd7ea51638ef6f318716"
-  TOOLCHAIN_FILE: "llvm-mingw-20250402-msvcrt-ubuntu-20.04-x86_64.tar.xz"
+  TOOLCHAIN_VERSION: "20250417"
+  TOOLCHAIN_SHA: "a93eb5db7d87985ddf812623b4403953a85be0ef"
+  TOOLCHAIN_FILE: "llvm-mingw-20250417-msvcrt-ubuntu-22.04-x86_64.tar.xz"
 
 jobs:
   build_mingw_arm:
@@ -44,7 +44,7 @@ jobs:
     - name: Build CLI and LibHB
       run: |
         CWDIR=$(pwd)
-        export PATH="$CWDIR/toolchains/llvm-mingw-${{ env.TOOLCHAIN_VERSION }}-msvcrt-ubuntu-20.04-x86_64/bin:${PATH}"
+        export PATH="$CWDIR/toolchains/llvm-mingw-${{ env.TOOLCHAIN_VERSION }}-msvcrt-ubuntu-22.04-x86_64/bin:${PATH}"
         export PATH=/usr/bin:$PATH
         git clone https://github.com/HandBrake/HandBrake.git
         ./patch.sh
@@ -184,7 +184,7 @@ jobs:
     - name: Build CLI and LibHB
       run: |
         CWDIR=$(pwd)
-        export PATH="$CWDIR/toolchains/llvm-mingw-${{ env.TOOLCHAIN_VERSION }}-msvcrt-ubuntu-20.04-x86_64/bin:${PATH}"
+        export PATH="$CWDIR/toolchains/llvm-mingw-${{ env.TOOLCHAIN_VERSION }}-msvcrt-ubuntu-22.04-x86_64/bin:${PATH}"
         export PATH=/usr/bin:$PATH
         git clone https://github.com/HandBrake/HandBrake.git
         ./patch.sh
