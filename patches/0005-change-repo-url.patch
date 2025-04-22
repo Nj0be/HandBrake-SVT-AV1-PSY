@@ -9,8 +9,8 @@ index 3538e1a9b..4c332d8b3 100644
 -SVT-AV1.FETCH.url     = https://github.com/HandBrake/HandBrake-contribs/releases/download/contribs2/SVT-AV1-v3.0.2.tar.gz
 -SVT-AV1.FETCH.url    += https://gitlab.com/AOMediaCodec/SVT-AV1/-/archive/v3.0.2/SVT-AV1-v3.0.2.tar.gz
 -SVT-AV1.FETCH.sha256  = 5af7f4376aa00a4dee32df04be1cdd1983c9940bcc019ee6b29bb8a216bae2f8
-+SVT-AV1.FETCH.url     = https://github.com/Uranite/HandBrake-SVT-AV1-PSY/releases/download/contribs/svt-av1-psy-3.0.2.tar.gz
-+SVT-AV1.FETCH.sha256  = b45d6f7253e94f5c1ef8c22fe2bb3c2c55178fbab43a41a3ae913dd5e0e118c2
++SVT-AV1.FETCH.url     = https://github.com/Nj0be/HandBrake-SVT-AV1-PSY/releases/download/contribs/SVT-AV1-PSY-v3.0.2.tar.gz
++SVT-AV1.FETCH.sha256  = bb8ea597f6223eec278738a95adb722468058d962cbc7234470da2a8275d334f
  
  SVT-AV1.GCC.args.c_std =
  
