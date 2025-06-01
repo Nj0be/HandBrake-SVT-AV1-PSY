@@ -1,8 +1,8 @@
 diff --git a/libhb/encsvtav1.c b/libhb/encsvtav1.c
-index 2f16984d5..f7913036d 100644
+index 54f52a117..22b59d4e3 100644
 --- a/libhb/encsvtav1.c
 +++ b/libhb/encsvtav1.c
-@@ -188,6 +188,14 @@ int encsvtInit(hb_work_object_t *w, hb_job_t *job)
+@@ -188,6 +190,14 @@ int encsvtInit(hb_work_object_t *w, hb_job_t *job)
      {
          param->tune = 2;
      }
@@ -19,7 +19,7 @@ index 2f16984d5..f7913036d 100644
          param->tune = 1;
 
 diff --git a/libhb/handbrake/av1_common.h b/libhb/handbrake/av1_common.h
-index 6d53a9dac..31158f6d0 100644
+index c95f090ca..ce8e20fa1 100644
 --- a/libhb/handbrake/av1_common.h
 +++ b/libhb/handbrake/av1_common.h
 @@ -31,7 +31,7 @@ static const char * const hb_av1_svt_preset_names[] =

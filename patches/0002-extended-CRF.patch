@@ -1,7 +1,7 @@
 Increasing CRF range from 63 to 70
 Changing CRF granularity from 1 to 0.25
 diff --git a/libhb/common.c b/libhb/common.c
-index dfd41edac..4cb7ef21e 100644
+index 1c43c7a7f..732c3b50c 100644
 --- a/libhb/common.c
 +++ b/libhb/common.c
 @@ -1547,14 +1547,20 @@ void hb_video_quality_get_limits(uint32_t codec, float *low, float *high,
@@ -36,16 +36,16 @@ The SVT-AV1-PSY fork store CRF/QP values in a particular way:
     MAX_QP_VALUE inside param->qp and the remaining part inside
 	param->extended_crf_qindex_offset (always multiplied by 4)
 diff --git a/libhb/encsvtav1.c b/libhb/encsvtav1.c
-index a2f18034f..195483b0c 100644
+index 54f52a117..1a0fdf5bd 100644
 --- a/libhb/encsvtav1.c
 +++ b/libhb/encsvtav1.c
 @@ -25,6 +25,7 @@ int  encsvtWork(hb_work_object_t *, hb_buffer_t **, hb_buffer_t **);
  void encsvtClose(hb_work_object_t *);
-
+ 
  #define FRAME_INFO_SIZE 2048
 +#define MAX_QP_VALUE 63
  #define FRAME_INFO_MASK (FRAME_INFO_SIZE - 1)
-
+ 
  hb_work_object_t hb_encsvtav1 =
 @@ -124,7 +125,8 @@ int encsvtInit(hb_work_object_t *w, hb_job_t *job)
      }
