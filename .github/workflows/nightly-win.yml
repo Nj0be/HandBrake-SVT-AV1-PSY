@@ -26,7 +26,7 @@ jobs:
     - name: Setup Toolchain
       run: |
         wget https://github.com/mstorsjo/llvm-mingw/releases/download/${{ env.TOOLCHAIN_VERSION }}/${{ env.TOOLCHAIN_FILE }}
-        SHA=$(sha1sum ${{ env.TOOLCHAIN_FILE }})
+        SHA=$(sha256sum ${{ env.TOOLCHAIN_FILE }})
         EXPECTED="${{ env.TOOLCHAIN_SHA }}  ${{ env.TOOLCHAIN_FILE }}"
         echo "Calculated SHA: $SHA"
         echo "Expected SHA:  $EXPECTED"
@@ -161,7 +161,7 @@ jobs:
     - name: Setup Toolchain
       run: |
         wget https://github.com/mstorsjo/llvm-mingw/releases/download/${{ env.TOOLCHAIN_VERSION }}/${{ env.TOOLCHAIN_FILE }}
-        SHA=$(sha1sum ${{ env.TOOLCHAIN_FILE }})
+        SHA=$(sha256sum ${{ env.TOOLCHAIN_FILE }})
         EXPECTED="${{ env.TOOLCHAIN_SHA }}  ${{ env.TOOLCHAIN_FILE }}"
         echo "Calculated SHA: $SHA"
         echo "Expected SHA:  $EXPECTED"
