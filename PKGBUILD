@@ -8,11 +8,6 @@ pkgname=(
   'handbrake-svt-av1-psy-llvm-optimized-cli'
 )
 
-pkgver() {
-  git -C HandBrake/ gc --auto --prune=now
-  git -C HandBrake/ describe ${_commit} | sed -e 's/^v//g' -e 's/-/.r/' -e 's/-/./'
-}
-
 pkgver=1.9.0
 pkgrel=2
 arch=('x86_64')
@@ -74,6 +69,11 @@ makedepends=(
 options=('!lto') # https://bugs.archlinux.org/task/72600
 source=("HandBrake::git+https://github.com/HandBrake/HandBrake.git" "HandBrake-SVT-AV1-PSY::git+https://github.com/Nj0be/HandBrake-SVT-AV1-PSY.git")
 sha256sums=('SKIP' 'SKIP')
+
+pkgver() {
+  cd "${srcdir}/HandBrake"
+  git describe --long | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
 
 setup_compiler() {
   export CC="/usr/bin/clang"
