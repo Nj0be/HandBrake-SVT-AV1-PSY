@@ -7,9 +7,9 @@ on:
   workflow_dispatch:
 
 env:
-  TOOLCHAIN_VERSION: "20250417"
-  TOOLCHAIN_SHA: "a93eb5db7d87985ddf812623b4403953a85be0ef"
-  TOOLCHAIN_FILE: "llvm-mingw-20250417-msvcrt-ubuntu-22.04-x86_64.tar.xz"
+  TOOLCHAIN_VERSION: "20250826"
+  TOOLCHAIN_SHA: "e89251ff7ee45fc45d50ed5c68ff45ebf77f0c83c8329db687d6c78652686738"
+  TOOLCHAIN_FILE: "llvm-mingw-20250826-msvcrt-ubuntu-22.04-x86_64.tar.xz"
 
 jobs:
   build_mingw_arm:
@@ -26,7 +26,7 @@ jobs:
     - name: Setup Toolchain
       run: |
         wget https://github.com/mstorsjo/llvm-mingw/releases/download/${{ env.TOOLCHAIN_VERSION }}/${{ env.TOOLCHAIN_FILE }}
-        SHA=$(sha1sum ${{ env.TOOLCHAIN_FILE }})
+        SHA=$(sha256sum ${{ env.TOOLCHAIN_FILE }})
         EXPECTED="${{ env.TOOLCHAIN_SHA }}  ${{ env.TOOLCHAIN_FILE }}"
         echo "Calculated SHA: $SHA"
         echo "Expected SHA:  $EXPECTED"
@@ -150,7 +150,7 @@ jobs:
           ~/.cargo/bin/cargo-capi
           ~/.cargo/bin/cargo-cbuild
           ~/.cargo/bin/cargo-cinstall
-        key: windows-cargo-c-toolchain
+        key: windows-cargo-c-toolchain-1
 
     - name: Setup Environment
       run: |
@@ -161,7 +161,7 @@ jobs:
     - name: Setup Toolchain
       run: |
         wget https://github.com/mstorsjo/llvm-mingw/releases/download/${{ env.TOOLCHAIN_VERSION }}/${{ env.TOOLCHAIN_FILE }}
-        SHA=$(sha1sum ${{ env.TOOLCHAIN_FILE }})
+        SHA=$(sha256sum ${{ env.TOOLCHAIN_FILE }})
         EXPECTED="${{ env.TOOLCHAIN_SHA }}  ${{ env.TOOLCHAIN_FILE }}"
         echo "Calculated SHA: $SHA"
         echo "Expected SHA:  $EXPECTED"
@@ -278,6 +278,7 @@ jobs:
     name: Deploy Nightly Build
     runs-on: ubuntu-latest
     needs: [build_gui_x64, build_gui_arm64]
+    if: github.event_name != 'pull_request'
     steps:
       - uses: actions/checkout@v4
        

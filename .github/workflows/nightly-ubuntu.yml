@@ -21,7 +21,7 @@ jobs:
           ~/.cargo/bin/cargo-capi
           ~/.cargo/bin/cargo-cbuild
           ~/.cargo/bin/cargo-cinstall
-        key: linux-cargo-c-toolchain
+        key: linux-cargo-c-toolchain-1
 
     - name: Setup Environment
       run: |
@@ -69,6 +69,7 @@ jobs:
     name: Deploy Nightly Build
     runs-on: ubuntu-latest
     needs: build
+    if: github.event_name != 'pull_request'
     steps:
       - uses: actions/checkout@v4
        
