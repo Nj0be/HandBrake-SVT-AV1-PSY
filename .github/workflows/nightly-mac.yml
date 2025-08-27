@@ -33,7 +33,7 @@ jobs:
           ~/.cargo/bin/cargo-capi
           ~/.cargo/bin/cargo-cbuild
           ~/.cargo/bin/cargo-cinstall
-        key: ${{ runner.os }}-${{ runner.arch }}-cargo-c-toolchain
+        key: ${{ runner.os }}-${{ runner.arch }}-cargo-c-toolchain-1
 
     - name: Download the Source Code
       run: |
