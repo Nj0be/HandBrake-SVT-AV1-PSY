@@ -278,6 +278,7 @@ jobs:
     name: Deploy Nightly Build
     runs-on: ubuntu-latest
     needs: [build_gui_x64, build_gui_arm64]
+    if: github.event_name != 'pull_request'
     steps:
       - uses: actions/checkout@v4
        
