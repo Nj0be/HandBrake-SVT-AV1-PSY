@@ -49,6 +49,7 @@ fi
 
 
 for filename in $BASEDIR/patches/*.patch; do
+    echo $filename
     patch -t -N -p1 -d $src_dir < "$filename"  || exit 1
 done
 
