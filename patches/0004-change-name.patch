@@ -2,7 +2,7 @@ diff --git a/libhb/common.c b/libhb/common.c
 index 1c43c7a7f..9f2957d21 100644
 --- a/libhb/common.c
 +++ b/libhb/common.c
-@@ -283,8 +283,8 @@ hb_encoder_internal_t hb_video_encoders[]  =
+@@ -285,8 +285,8 @@ hb_encoder_internal_t hb_video_encoders[]  =
      { { "MPEG-2 (FFmpeg)",             "ffmpeg2",          NULL,                             HB_VCODEC_FFMPEG_MPEG2,      HB_MUX_MASK_MP4|HB_MUX_MASK_MKV, }, NULL, 1, 0, HB_GID_VCODEC_MPEG2,  },
      { { "VP3 (Theora)",                "libtheora",        NULL,                             HB_VCODEC_THEORA,                            HB_MUX_MASK_MKV, }, NULL, 1, 0, HB_GID_VCODEC_THEORA, },
      // actual encoders

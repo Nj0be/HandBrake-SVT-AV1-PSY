@@ -2,7 +2,7 @@ diff --git a/libhb/encsvtav1.c b/libhb/encsvtav1.c
 index 54f52a117..22b59d4e3 100644
 --- a/libhb/encsvtav1.c
 +++ b/libhb/encsvtav1.c
-@@ -188,6 +190,14 @@ int encsvtInit(hb_work_object_t *w, hb_job_t *job)
+@@ -199,6 +199,14 @@ int encsvtInit(hb_work_object_t *w, hb_job_t *job)
      {
          param->tune = 2;
      }
@@ -26,7 +26,7 @@ index c95f090ca..ce8e20fa1 100644
  
  static const char * const hb_av1_svt_tune_names[] =
  {
--    "vq", "psnr", "ssim", "fastdecode", NULL
+-    "vq", "psnr", "ssim", "iq", "ms-ssim", "fastdecode", NULL
 +    "vq", "psnr", "ssim", "subjective ssim", "still picture", "fastdecode", NULL
  };
  
